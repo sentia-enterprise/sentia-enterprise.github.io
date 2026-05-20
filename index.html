@@ -1,618 +1,184 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sentia WineOps example landing page for practical winery operations pilots in Navarra and Rioja." />
-  <title>Sentia WineOps | 90-Day Winery Operations Pilots</title>
+  <meta name="description" content="Sentia WineOps: pilotos de 90 dias para bodegas de Navarra, Ribera y Rioja, con alcance acotado, KPI y evidencia operativa." />
+  <title>Sentia WineOps | Pilotos operativos para bodegas</title>
   <style>
     :root {
       color-scheme: light;
-      --ink: #0f172a;
-      --muted: #475569;
-      --line: #dbeafe;
-      --surface: #ffffff;
-      --surface-soft: #f0f9ff;
-      --brand: #0c4a6e;
-      --brand-2: #0ea5e9;
-      --accent: #f97316;
-      --accent-soft: #fff7ed;
-      --success: #166534;
-      --shadow: 0 24px 70px rgba(12, 74, 110, 0.13);
-      --radius-xl: 32px;
+      --navarra-red: #b11226;
+      --rioja-red: #7a1020;
+      --vine-green: #23623a;
+      --leaf-green: #6f8f3d;
+      --sand: #d7bd86;
+      --sand-soft: #f4ead4;
+      --clay: #9b5b34;
+      --ink: #201713;
+      --muted: #6a5c4e;
+      --line: #e7d7b8;
+      --surface: rgba(255, 252, 244, 0.92);
+      --white: #fffdf7;
+      --shadow: 0 24px 70px rgba(80, 36, 18, 0.16);
+      --radius-xl: 34px;
       --radius-lg: 22px;
-      --radius-md: 16px;
       --max: 1180px;
     }
 
     * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(14, 165, 233, 0.15), transparent 34rem),
-        linear-gradient(180deg, #f8fcff 0%, #ffffff 42%, #f8fafc 100%);
+        radial-gradient(circle at 12% 8%, rgba(177, 18, 38, 0.16), transparent 24rem),
+        radial-gradient(circle at 82% 6%, rgba(35, 98, 58, 0.18), transparent 24rem),
+        linear-gradient(180deg, #fff8e8 0%, #f5ead1 48%, #fffdf7 100%);
       line-height: 1.55;
     }
-
+    body::before {
+      content: "";
+      position: fixed;
+      inset: auto 0 0;
+      height: 32vh;
+      pointer-events: none;
+      z-index: -1;
+      background:
+        linear-gradient(165deg, transparent 0 42%, rgba(35, 98, 58, 0.13) 42% 58%, transparent 58%),
+        linear-gradient(8deg, rgba(155, 91, 52, 0.18), rgba(215, 189, 134, 0.08));
+    }
     a { color: inherit; text-decoration: none; }
-
-    .skip-link {
-      position: absolute;
-      left: -999px;
-      top: 12px;
-      z-index: 10;
-      background: var(--ink);
-      color: white;
-      padding: 10px 14px;
-      border-radius: 12px;
-    }
-
+    .skip-link { position: absolute; left: -999px; top: 12px; z-index: 20; padding: 10px 14px; border-radius: 12px; background: var(--ink); color: white; }
     .skip-link:focus { left: 12px; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
 
-    .wrap {
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 5;
-      backdrop-filter: blur(16px);
-      background: rgba(248, 252, 255, 0.86);
-      border-bottom: 1px solid rgba(219, 234, 254, 0.8);
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 16px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--brand);
-    }
-
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      color: white;
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-      box-shadow: 0 12px 28px rgba(14, 165, 233, 0.22);
-    }
-
-    .brand-mark svg { width: 22px; height: 22px; }
-
-    nav ul {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    nav a {
-      display: inline-flex;
-      min-height: 40px;
-      align-items: center;
-      border-radius: 999px;
-      padding: 0 14px;
-      color: var(--muted);
-      font-weight: 650;
-      font-size: 0.93rem;
-      transition: color 180ms ease, background 180ms ease;
-      cursor: pointer;
-    }
-
-    nav a:hover,
-    nav a:focus-visible {
-      color: var(--brand);
-      background: #e0f2fe;
-      outline: none;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      min-height: 46px;
-      border: 0;
-      border-radius: 999px;
-      padding: 0 18px;
-      font-weight: 800;
-      color: white;
-      background: var(--accent);
-      box-shadow: 0 15px 30px rgba(249, 115, 22, 0.22);
-      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-      cursor: pointer;
-    }
-
-    .button:hover,
-    .button:focus-visible {
-      transform: translateY(-1px);
-      background: #ea580c;
-      box-shadow: 0 18px 36px rgba(249, 115, 22, 0.28);
-      outline: 3px solid rgba(249, 115, 22, 0.25);
-      outline-offset: 3px;
-    }
-
-    .button.secondary {
-      color: var(--brand);
-      background: white;
-      border: 1px solid var(--line);
-      box-shadow: none;
-    }
-
-    .button.secondary:hover,
-    .button.secondary:focus-visible {
-      background: #f0f9ff;
-      box-shadow: 0 12px 28px rgba(12, 74, 110, 0.1);
-    }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(255, 248, 232, 0.88); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(231, 215, 184, 0.9); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -0.04em; color: var(--rioja-red); }
+    .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 15px; color: #fff7e3; background: linear-gradient(135deg, var(--navarra-red), var(--vine-green)); box-shadow: 0 14px 34px rgba(177, 18, 38, 0.24); }
+    .brand-mark svg { width: 23px; height: 23px; }
+    nav ul { display: flex; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
+    nav a { display: inline-flex; min-height: 40px; align-items: center; border-radius: 999px; padding: 0 13px; color: var(--muted); font-weight: 750; font-size: 0.92rem; transition: background 180ms ease, color 180ms ease; cursor: pointer; }
+    nav a:hover, nav a:focus-visible { background: var(--sand-soft); color: var(--rioja-red); outline: none; }
+    .language-switcher { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 253, 247, 0.82); }
+    .language-switcher button { min-height: 34px; border: 0; border-radius: 999px; padding: 0 12px; background: transparent; color: var(--muted); font-weight: 850; cursor: pointer; }
+    .language-switcher button[aria-pressed="true"] { color: white; background: var(--vine-green); }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; border: 0; border-radius: 999px; padding: 0 18px; font-weight: 900; color: #fffaf0; background: var(--navarra-red); box-shadow: 0 16px 34px rgba(177, 18, 38, 0.22); transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease; cursor: pointer; }
+    .button:hover, .button:focus-visible { transform: translateY(-1px); background: var(--rioja-red); outline: 3px solid rgba(177, 18, 38, 0.22); outline-offset: 3px; }
+    .button.secondary { color: var(--vine-green); background: var(--white); border: 1px solid var(--line); box-shadow: none; }
+    .button.secondary:hover, .button.secondary:focus-visible { background: var(--sand-soft); box-shadow: 0 12px 26px rgba(80, 36, 18, 0.1); }
 
     main { overflow: hidden; }
-
-    .hero {
-      padding: 86px 0 54px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
-      gap: 52px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 8px 12px;
-      color: var(--brand);
-      background: rgba(255, 255, 255, 0.72);
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent);
-    }
-
+    section { padding: 78px 0; }
+    .hero { padding: 88px 0 58px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.06fr) minmax(340px, 0.94fr); gap: 52px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; color: var(--rioja-red); background: rgba(255,253,247,0.74); font-size: 0.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--vine-green); }
     h1, h2, h3, p { margin-top: 0; }
-
-    h1 {
-      margin: 24px 0 20px;
-      font-size: clamp(2.65rem, 6vw, 5.65rem);
-      line-height: 0.92;
-      letter-spacing: -0.07em;
-      color: var(--brand);
-    }
-
-    .lead {
-      max-width: 760px;
-      color: var(--muted);
-      font-size: clamp(1.06rem, 2vw, 1.25rem);
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .hero-note {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 30px;
-      color: var(--muted);
-      font-weight: 650;
-      font-size: 0.94rem;
-    }
-
-    .hero-note span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: 999px;
-      padding: 8px 12px;
-      background: white;
-      border: 1px solid var(--line);
-    }
-
-    .device {
-      position: relative;
-      border: 1px solid rgba(219, 234, 254, 0.95);
-      border-radius: var(--radius-xl);
-      padding: 18px;
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: var(--shadow);
-    }
-
-    .device::before {
-      content: "";
-      position: absolute;
-      inset: -55px -65px auto auto;
-      width: 180px;
-      height: 180px;
-      border-radius: 999px;
-      background: rgba(249, 115, 22, 0.12);
-      z-index: -1;
-    }
-
-    .panel {
-      border-radius: 24px;
-      padding: 20px;
-      background: linear-gradient(180deg, #ffffff, #f8fcff);
-      border: 1px solid #e2e8f0;
-    }
-
-    .panel-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
-    }
-
-    .panel-title strong {
-      display: block;
-      color: var(--brand);
-      font-size: 1.02rem;
-    }
-
-    .panel-title span { color: var(--muted); font-size: 0.88rem; }
-
-    .status {
-      border-radius: 999px;
-      padding: 7px 10px;
-      color: var(--success);
-      background: #dcfce7;
-      font-size: 0.78rem;
-      font-weight: 850;
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .metric {
-      border-radius: 18px;
-      padding: 14px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-    }
-
-    .metric strong {
-      display: block;
-      color: var(--brand);
-      font-size: 1.25rem;
-      letter-spacing: -0.04em;
-    }
-
-    .metric span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 650;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 10px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .timeline li {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 14px;
-      padding: 13px;
-      border-radius: 18px;
-      background: white;
-      border: 1px solid #e2e8f0;
-    }
-
-    .timeline time {
-      color: var(--brand-2);
-      font-weight: 850;
-      font-size: 0.82rem;
-    }
-
-    .timeline strong { display: block; color: var(--ink); }
-    .timeline span { color: var(--muted); font-size: 0.9rem; }
-
-    section { padding: 72px 0; }
-
-    .section-head {
-      max-width: 760px;
-      margin-bottom: 30px;
-    }
-
-    .section-head h2 {
-      margin-bottom: 12px;
-      color: var(--brand);
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      line-height: 1;
-      letter-spacing: -0.055em;
-    }
-
+    h1 { margin: 24px 0 20px; max-width: 820px; font-size: clamp(2.5rem, 6vw, 5.45rem); line-height: 0.94; letter-spacing: -0.07em; color: var(--rioja-red); }
+    .lead { max-width: 760px; color: var(--muted); font-size: clamp(1.06rem, 2vw, 1.24rem); }
+    .hero-actions, .hero-note { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .hero-note span { display: inline-flex; align-items: center; border-radius: 999px; padding: 8px 12px; background: rgba(255,253,247,0.9); border: 1px solid var(--line); color: var(--muted); font-weight: 750; font-size: 0.93rem; }
+    .landscape-card { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-xl); background: var(--surface); box-shadow: var(--shadow); }
+    .landscape { height: 150px; background: linear-gradient(178deg, #fff6dc 0 42%, transparent 42%), linear-gradient(160deg, transparent 0 38%, rgba(35,98,58,.75) 38% 50%, transparent 50%), linear-gradient(12deg, #b66d3f, #d7bd86 45%, #f4ead4); }
+    .panel { margin: -34px 18px 18px; position: relative; border-radius: 24px; padding: 20px; background: var(--white); border: 1px solid var(--line); }
+    .panel-head { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+    .panel-title strong { display: block; color: var(--rioja-red); }
+    .panel-title span, .metric span, .timeline span { color: var(--muted); font-size: 0.9rem; }
+    .status { border-radius: 999px; padding: 7px 10px; color: var(--vine-green); background: #e8f2dc; font-size: 0.78rem; font-weight: 900; white-space: nowrap; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+    .metric { border-radius: 18px; padding: 14px; background: #fff9eb; border: 1px solid var(--line); }
+    .metric strong { display: block; color: var(--rioja-red); font-size: 1.25rem; letter-spacing: -0.04em; }
+    .timeline { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .timeline li { display: grid; grid-template-columns: 78px 1fr; gap: 13px; padding: 13px; border-radius: 18px; background: #fffdf7; border: 1px solid var(--line); }
+    .timeline time { color: var(--vine-green); font-weight: 900; font-size: 0.82rem; }
+    .timeline strong { display: block; }
+    .section-head { max-width: 800px; margin-bottom: 30px; }
+    .section-head h2 { margin-bottom: 12px; color: var(--rioja-red); font-size: clamp(2rem, 4vw, 3.35rem); line-height: 1; letter-spacing: -0.055em; }
     .section-head p { color: var(--muted); font-size: 1.08rem; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      border: 1px solid #e2e8f0;
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.05);
-    }
-
-    .card h3 {
-      color: var(--brand);
-      margin-bottom: 8px;
-      font-size: 1.22rem;
-      letter-spacing: -0.03em;
-    }
-
-    .card p { color: var(--muted); margin-bottom: 0; }
-
-    .icon {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      margin-bottom: 18px;
-      border-radius: 16px;
-      color: var(--brand);
-      background: var(--surface-soft);
-      border: 1px solid var(--line);
-    }
-
+    .cards, .modules, .evidence-grid { display: grid; gap: 18px; }
+    .cards { grid-template-columns: repeat(3, 1fr); }
+    .modules { grid-template-columns: repeat(5, 1fr); }
+    .evidence-grid { grid-template-columns: repeat(4, 1fr); }
+    .card, .module, .evidence-item { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px; background: rgba(255,253,247,0.88); box-shadow: 0 14px 36px rgba(80,36,18,.06); }
+    .card h3, .module h3 { margin-bottom: 8px; color: var(--vine-green); letter-spacing: -0.03em; }
+    .card p, .module p, .evidence-item span { color: var(--muted); }
+    .icon { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 16px; border-radius: 16px; color: var(--rioja-red); background: var(--sand-soft); border: 1px solid var(--line); }
     .icon svg { width: 23px; height: 23px; }
-
-    .modules {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-    }
-
-    .module {
-      min-height: 220px;
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      background: white;
-      border: 1px solid #e2e8f0;
-      transition: border 180ms ease, transform 180ms ease, box-shadow 180ms ease;
-    }
-
-    .module:hover {
-      transform: translateY(-2px);
-      border-color: #7dd3fc;
-      box-shadow: 0 18px 40px rgba(12, 74, 110, 0.1);
-    }
-
-    .module .tag {
-      display: inline-flex;
-      margin-bottom: 18px;
-      border-radius: 999px;
-      padding: 6px 9px;
-      color: var(--brand);
-      background: #e0f2fe;
-      font-size: 0.72rem;
-      font-weight: 850;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-    }
-
-    .module h3 { margin-bottom: 8px; color: var(--ink); }
-    .module p { color: var(--muted); font-size: 0.94rem; }
-
-    .method {
-      display: grid;
-      grid-template-columns: 0.86fr 1.14fr;
-      gap: 22px;
-      align-items: start;
-    }
-
-    .method-box {
-      border-radius: var(--radius-xl);
-      padding: 28px;
-      background: var(--brand);
-      color: white;
-      box-shadow: var(--shadow);
-    }
-
-    .method-box h2 {
-      margin-bottom: 12px;
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1;
-      letter-spacing: -0.055em;
-    }
-
-    .method-box p { color: #bae6fd; }
-
-    .steps {
-      display: grid;
-      gap: 12px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 58px 1fr;
-      gap: 14px;
-      padding: 18px;
-      border-radius: 22px;
-      background: white;
-      border: 1px solid #e2e8f0;
-    }
-
-    .step-number {
-      display: grid;
-      place-items: center;
-      width: 46px;
-      height: 46px;
-      border-radius: 16px;
-      color: white;
-      background: linear-gradient(135deg, var(--brand-2), var(--brand));
-      font-weight: 900;
-    }
-
-    .step h3 { margin-bottom: 4px; color: var(--brand); }
+    .module { min-height: 220px; transition: border 180ms ease, transform 180ms ease, box-shadow 180ms ease; }
+    .module:hover { transform: translateY(-2px); border-color: rgba(35,98,58,.55); box-shadow: 0 20px 42px rgba(80,36,18,.12); }
+    .tag { display: inline-flex; margin-bottom: 16px; border-radius: 999px; padding: 6px 9px; color: #fffaf0; background: var(--vine-green); font-size: 0.72rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.07em; }
+    .method { display: grid; grid-template-columns: .86fr 1.14fr; gap: 22px; align-items: start; }
+    .method-box, .cta-panel { border-radius: var(--radius-xl); padding: 30px; color: #fff8e8; background: radial-gradient(circle at top right, rgba(215,189,134,.24), transparent 18rem), linear-gradient(135deg, var(--rioja-red), var(--navarra-red)); box-shadow: var(--shadow); }
+    .method-box h2, .cta-panel h2 { color: #fff8e8; font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1; letter-spacing: -0.055em; margin-bottom: 12px; }
+    .method-box p, .cta-panel p { color: #f4ead4; }
+    .steps { display: grid; gap: 12px; }
+    .step { display: grid; grid-template-columns: 58px 1fr; gap: 14px; padding: 18px; border-radius: 22px; background: var(--white); border: 1px solid var(--line); }
+    .step-number { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 16px; color: white; background: linear-gradient(135deg, var(--vine-green), var(--leaf-green)); font-weight: 900; }
+    .step h3 { margin-bottom: 4px; color: var(--rioja-red); }
     .step p { margin-bottom: 0; color: var(--muted); }
+    .evidence { border-radius: var(--radius-xl); padding: 30px; background: rgba(244,234,212,.74); border: 1px solid var(--line); }
+    .evidence-item strong { display: block; margin-bottom: 5px; color: var(--rioja-red); }
+    .form-card { display: grid; grid-template-columns: .88fr 1.12fr; gap: 22px; align-items: stretch; border-radius: var(--radius-xl); padding: 24px; background: var(--white); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .form-copy { padding: 12px; }
+    .form-frame { min-height: 620px; width: 100%; border: 1px solid var(--line); border-radius: 22px; background: var(--sand-soft); }
+    .form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .cta-panel { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+    footer { padding: 36px 0 48px; color: var(--muted); }
+    .footer-grid { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding-top: 24px; font-size: 0.92rem; }
 
-    .evidence {
-      border-radius: var(--radius-xl);
-      padding: 28px;
-      background: var(--accent-soft);
-      border: 1px solid #fed7aa;
-    }
-
-    .evidence-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .evidence-item {
-      border-radius: 18px;
-      padding: 16px;
-      background: white;
-      border: 1px solid #ffedd5;
-    }
-
-    .evidence-item strong { display: block; color: #9a3412; margin-bottom: 5px; }
-    .evidence-item span { color: var(--muted); font-size: 0.9rem; }
-
-    .cta-panel {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: center;
-      border-radius: var(--radius-xl);
-      padding: 34px;
-      color: white;
-      background:
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.28), transparent 24rem),
-        linear-gradient(135deg, #082f49, #0c4a6e);
-      box-shadow: var(--shadow);
-    }
-
-    .cta-panel h2 {
-      margin-bottom: 10px;
-      font-size: clamp(2rem, 4vw, 3.25rem);
-      line-height: 1;
-      letter-spacing: -0.055em;
-    }
-
-    .cta-panel p { color: #bae6fd; margin-bottom: 0; }
-
-    footer {
-      padding: 36px 0 48px;
-      color: var(--muted);
-    }
-
-    .footer-grid {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      border-top: 1px solid #e2e8f0;
-      padding-top: 24px;
-      font-size: 0.92rem;
-    }
+    [data-lang="en"] { display: none; }
+    body.lang-en [data-lang="es"] { display: none; }
+    body.lang-en [data-lang="en"] { display: revert; }
+    body.lang-en .cards[data-lang="en"], body.lang-en .modules[data-lang="en"], body.lang-en .evidence-grid[data-lang="en"] { display: grid; }
 
     @media (max-width: 1040px) {
-      .hero-grid,
-      .method,
-      .cta-panel { grid-template-columns: 1fr; }
-      .cards { grid-template-columns: repeat(2, 1fr); }
-      .modules { grid-template-columns: repeat(2, 1fr); }
-      .evidence-grid { grid-template-columns: repeat(2, 1fr); }
-      .cta-panel { text-align: left; }
+      .hero-grid, .method, .form-card, .cta-panel { grid-template-columns: 1fr; }
+      .cards, .modules, .evidence-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
     @media (max-width: 720px) {
       .wrap { width: min(100% - 28px, var(--max)); }
       header { position: static; }
-      .nav { align-items: flex-start; }
+      .nav { align-items: flex-start; flex-wrap: wrap; }
       nav ul { display: none; }
-      .hero { padding-top: 54px; }
-      .hero-grid { gap: 30px; }
-      .metric-grid,
-      .cards,
-      .modules,
-      .evidence-grid { grid-template-columns: 1fr; }
-      .timeline li { grid-template-columns: 1fr; }
-      .step { grid-template-columns: 1fr; }
+      .language-switcher, .nav > .button { width: 100%; }
+      .language-switcher button { flex: 1; }
+      .hero { padding-top: 48px; }
+      .metric-grid, .cards, .modules, .evidence-grid { grid-template-columns: 1fr; }
+      .timeline li, .step { grid-template-columns: 1fr; }
+      .form-frame { min-height: 560px; }
       .cta-panel { padding: 24px; }
       .footer-grid { flex-direction: column; }
     }
-
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto;
-        transition-duration: 0.01ms;
-        animation-duration: 0.01ms;
-        animation-iteration-count: 1;
-      }
+      *, *::before, *::after { scroll-behavior: auto; transition-duration: 0.01ms; animation-duration: 0.01ms; animation-iteration-count: 1; }
     }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main" data-lang="es">Saltar al contenido</a>
+  <a class="skip-link" href="#main" data-lang="en">Skip to content</a>
   <header>
-    <div class="wrap nav" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="Sentia WineOps home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Sentia operational signal mark</title><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 3 5-7"/></svg>
-        </span>
+    <div class="wrap nav" aria-label="Navegacion principal">
+      <a class="brand" href="#top" aria-label="Sentia WineOps inicio">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Marca de senal operativa Sentia</title><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 3 5-7"/></svg></span>
         <span>Sentia WineOps</span>
       </a>
-      <nav aria-label="Page sections">
+      <nav aria-label="Secciones de la pagina">
         <ul>
-          <li><a href="#modules">Modules</a></li>
-          <li><a href="#method">90-day pilot</a></li>
-          <li><a href="#evidence">Evidence</a></li>
+          <li><a href="#modules" data-lang="es">Modulos</a><a href="#modules" data-lang="en">Modules</a></li>
+          <li><a href="#method" data-lang="es">Piloto 90 dias</a><a href="#method" data-lang="en">90-day pilot</a></li>
+          <li><a href="#form" data-lang="es">Formulario</a><a href="#form" data-lang="en">Form</a></li>
         </ul>
       </nav>
-      <a class="button" href="mailto:hello@sentia.example?subject=WineOps%20pilot%20fit">Discuss pilot fit</a>
+      <div class="language-switcher" role="group" aria-label="Seleccion de idioma">
+        <button type="button" data-set-lang="es" aria-pressed="true">ES</button>
+        <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSczKzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="es">Evaluar piloto</a>
+      <a class="button" href="https://docs.google.com/forms/d/e/1FAIpQLSczKzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="en">Assess pilot fit</a>
     </div>
   </header>
 
@@ -620,158 +186,66 @@
     <section class="hero" id="top">
       <div class="wrap hero-grid">
         <div>
-          <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Winery operations Â· Navarra / Rioja</span>
-          <h1>Start with one winery pain. Prove the pilot before scaling.</h1>
-          <p class="lead">WineOps is Sentia's modular operating framework for wineries that need clearer signals, traceability, and evidence without starting a large transformation project.</p>
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span><span data-lang="es">Bodegas Navarra · Ribera · Rioja</span><span data-lang="en">Wineries Navarra · Ribera · Rioja</span></span>
+          <h1 data-lang="es">Control operativo para bodegas, probado en un piloto acotado.</h1>
+          <h1 data-lang="en">Winery operating control, tested through a scoped pilot.</h1>
+          <p class="lead" data-lang="es">WineOps es el marco modular de Sentia para convertir una incertidumbre concreta de bodega en señales, trazabilidad y evidencia de decision durante 90 dias.</p>
+          <p class="lead" data-lang="en">WineOps is Sentia's modular framework for turning one winery operating uncertainty into signals, traceability, and decision evidence over 90 days.</p>
           <div class="hero-actions">
-            <a class="button" href="#method">See the 90-day method</a>
-            <a class="button secondary" href="#modules">Explore modules</a>
+            <a class="button" href="#form" data-lang="es">Solicitar revision de encaje</a>
+            <a class="button" href="#form" data-lang="en">Request fit review</a>
+            <a class="button secondary" href="#modules" data-lang="es">Ver modulos</a>
+            <a class="button secondary" href="#modules" data-lang="en">Explore modules</a>
           </div>
-          <div class="hero-note" aria-label="Positioning notes">
-            <span>Scoped pilot first</span>
-            <span>Baseline and KPI agreed</span>
-            <span>Go / no-go evidence</span>
+          <div class="hero-note" aria-label="Notas de posicionamiento">
+            <span data-lang="es">Un dolor operativo</span><span data-lang="en">One operating pain</span>
+            <span data-lang="es">KPI pactados</span><span data-lang="en">Agreed KPI</span>
+            <span data-lang="es">Decision go / no-go</span><span data-lang="en">Go / no-go decision</span>
           </div>
         </div>
-
-        <aside class="device" aria-label="Example WineOps pilot dashboard preview">
+        <aside class="landscape-card" aria-label="Vista ejemplo del piloto WineOps">
+          <div class="landscape" aria-hidden="true"></div>
           <div class="panel">
             <div class="panel-head">
-              <div class="panel-title">
-                <strong>FermentWatch pilot board</strong>
-                <span>Example view Â· one room, agreed KPI</span>
-              </div>
-              <span class="status">Pilot scope</span>
+              <div class="panel-title"><strong>FermentWatch</strong><span data-lang="es">Vista ejemplo · una sala, KPI acordado</span><span data-lang="en">Example view · one room, agreed KPI</span></div>
+              <span class="status" data-lang="es">Piloto</span><span class="status" data-lang="en">Pilot</span>
             </div>
-            <div class="metric-grid">
-              <div class="metric"><strong>12</strong><span>tanks in scope</span></div>
-              <div class="metric"><strong>4</strong><span>alert rules</span></div>
-              <div class="metric"><strong>90d</strong><span>review window</span></div>
-            </div>
+            <div class="metric-grid"><div class="metric"><strong>12</strong><span data-lang="es">depositos</span><span data-lang="en">tanks</span></div><div class="metric"><strong>4</strong><span data-lang="es">reglas</span><span data-lang="en">rules</span></div><div class="metric"><strong>90d</strong><span data-lang="es">revision</span><span data-lang="en">review</span></div></div>
             <ol class="timeline">
-              <li><time>Week 1</time><span><strong>Baseline</strong>Current routines, owners, thresholds, and handover points.</span></li>
-              <li><time>Week 3</time><span><strong>Capture</strong>Signals, events, and closure notes in one operating history.</span></li>
-              <li><time>Week 8</time><span><strong>Review</strong>Adoption, response time, unresolved events, and next decision.</span></li>
+              <li><time data-lang="es">Semana 1</time><time data-lang="en">Week 1</time><span><strong data-lang="es">Linea base</strong><strong data-lang="en">Baseline</strong><span data-lang="es">Rutinas, responsables, umbrales y puntos de relevo.</span><span data-lang="en">Routines, owners, thresholds, and handover points.</span></span></li>
+              <li><time data-lang="es">Semana 3</time><time data-lang="en">Week 3</time><span><strong data-lang="es">Captura</strong><strong data-lang="en">Capture</strong><span data-lang="es">Senales, eventos y cierre en un historico operativo.</span><span data-lang="en">Signals, events, and closure notes in one operating history.</span></span></li>
+              <li><time data-lang="es">Semana 8</time><time data-lang="en">Week 8</time><span><strong data-lang="es">Revision</strong><strong data-lang="en">Review</strong><span data-lang="es">Adopcion, reaccion, excepciones y siguiente decision.</span><span data-lang="en">Adoption, response, exceptions, and the next decision.</span></span></li>
             </ol>
           </div>
         </aside>
       </div>
     </section>
 
-    <section id="problem">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Built for operational uncertainty, not generic digital transformation.</h2>
-          <p>Many wineries already have skilled teams and established routines. WineOps focuses on the gaps where paper, memory, Excel, or disconnected systems make the next decision slower than it should be.</p>
-        </div>
-        <div class="cards">
-          <article class="card">
-            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Clock and reaction time icon</title><path d="M12 8v5l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
-            <h3>Late reaction</h3>
-            <p>Fermentation deviations or room events are noticed, but the response path is not always visible across shifts.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Barrel and asset tracking icon</title><path d="M4 7h16"/><path d="M6 7v13h12V7"/><path d="M9 7V4h6v3"/></svg></div>
-            <h3>Asset uncertainty</h3>
-            <p>Barrels, lots, movements, and exceptions can become hard to reconstruct when the team needs a clear history.</p>
-          </article>
-          <article class="card">
-            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Evidence flow icon</title><path d="M5 12h14"/><path d="M12 5v14"/><path d="m16 8 3 4-3 4"/><path d="m8 8-3 4 3 4"/></svg></div>
-            <h3>Evidence gap</h3>
-            <p>Teams may know what happened, but lack a simple evidence pack for review, audit support, or commercial discussion.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <section id="problem"><div class="wrap"><div class="section-head"><h2 data-lang="es">Pensado para incertidumbre operativa, no para prometer transformacion total.</h2><h2 data-lang="en">Built for operational uncertainty, not total transformation promises.</h2><p data-lang="es">Muchas bodegas ya tienen buenos equipos y rutinas. WineOps se centra en los puntos donde papel, memoria, Excel o sistemas desconectados retrasan la decision.</p><p data-lang="en">Many wineries already have strong teams and routines. WineOps focuses on the gaps where paper, memory, Excel, or disconnected systems slow the next decision.</p></div><div class="cards"><article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Icono de tiempo de reaccion</title><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg></div><h3 data-lang="es">Reaccion tardia</h3><h3 data-lang="en">Late reaction</h3><p data-lang="es">Desviaciones o incidencias se detectan, pero no siempre queda claro quien actuo, cuando y con que resultado.</p><p data-lang="en">Deviations or incidents are detected, but ownership, timing, and closure are not always clear.</p></article><article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Icono de trazabilidad</title><path d="M4 7h16"/><path d="M6 7v13h12V7"/><path d="M9 7V4h6v3"/></svg></div><h3 data-lang="es">Trazabilidad incompleta</h3><h3 data-lang="en">Incomplete traceability</h3><p data-lang="es">Barricas, lotes, movimientos y excepciones pueden ser dificiles de reconstruir cuando hace falta revisar el historico.</p><p data-lang="en">Barrels, lots, movements, and exceptions can be hard to reconstruct when the team needs history.</p></article><article class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Icono de evidencia</title><path d="M5 12h14"/><path d="M12 5v14"/><path d="m16 8 3 4-3 4"/><path d="m8 8-3 4 3 4"/></svg></div><h3 data-lang="es">Falta de evidencia</h3><h3 data-lang="en">Evidence gap</h3><p data-lang="es">El equipo puede saber que ocurrio, pero no siempre tiene un paquete simple para revision, auditoria interna o conversacion comercial.</p><p data-lang="en">The team may know what happened, but lacks a simple pack for review, internal audit, or commercial discussion.</p></article></div></div></section>
 
-    <section id="modules">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>A modular portfolio for practical winery pilots.</h2>
-          <p>Start with the module that matches one current pain. Add expansion modules only when adoption, risk, or commercial priority makes the next step credible.</p>
-        </div>
-        <div class="modules" aria-label="WineOps modules">
-          <article class="module">
-            <span class="tag">Core</span>
-            <h3>FermentWatch</h3>
-            <p>Early alerts, tank history, event closure, and response-time evidence for fermentation control.</p>
-          </article>
-          <article class="module">
-            <span class="tag">Core</span>
-            <h3>BarrelTrack</h3>
-            <p>Traceability for barrel locations, movements, and operating events across defined winery zones.</p>
-          </article>
-          <article class="module">
-            <span class="tag">Decision layer</span>
-            <h3>BarrelIQ</h3>
-            <p>Exception patterns, decision notes, and escalation logic for barrel-related decisions.</p>
-          </article>
-          <article class="module">
-            <span class="tag">Expansion</span>
-            <h3>CellarClimate</h3>
-            <p>Room or zone climate visibility when conditions affect quality routines or internal audit evidence.</p>
-          </article>
-          <article class="module">
-            <span class="tag">Expansion</span>
-            <h3>WineTransit</h3>
-            <p>Shipment-condition evidence for premium or export lots where dispatch risk needs better records.</p>
-          </article>
-        </div>
-      </div>
-    </section>
+    <section id="modules"><div class="wrap"><div class="section-head"><h2 data-lang="es">Modulos WineOps para empezar por un dolor concreto.</h2><h2 data-lang="en">WineOps modules for one specific pain first.</h2><p data-lang="es">Empezar por FermentWatch o BarrelTrack/BarrelIQ. Anadir CellarClimate o WineTransit solo cuando adopcion, riesgo o prioridad comercial lo justifiquen.</p><p data-lang="en">Start with FermentWatch or BarrelTrack/BarrelIQ. Add CellarClimate or WineTransit only when adoption, risk, or commercial priority supports it.</p></div><div class="modules"><article class="module"><span class="tag">Core</span><h3>FermentWatch</h3><p data-lang="es">Alertas tempranas, historico de deposito y cierre de eventos en fermentacion.</p><p data-lang="en">Early alerts, tank history, and event closure for fermentation.</p></article><article class="module"><span class="tag">Core</span><h3>BarrelTrack</h3><p data-lang="es">Trazabilidad de ubicaciones, movimientos y eventos de barrica por zona.</p><p data-lang="en">Traceability for barrel locations, movements, and zone events.</p></article><article class="module"><span class="tag" data-lang="es">Decision</span><span class="tag" data-lang="en">Decision</span><h3>BarrelIQ</h3><p data-lang="es">Patrones de excepcion, notas de decision y logica de escalado.</p><p data-lang="en">Exception patterns, decision notes, and escalation logic.</p></article><article class="module"><span class="tag" data-lang="es">Expansion</span><span class="tag" data-lang="en">Expansion</span><h3>CellarClimate</h3><p data-lang="es">Visibilidad climatica por sala o zona cuando afecta a calidad o evidencia interna.</p><p data-lang="en">Room or zone climate visibility when it affects quality or internal evidence.</p></article><article class="module"><span class="tag" data-lang="es">Expansion</span><span class="tag" data-lang="en">Expansion</span><h3>WineTransit</h3><p data-lang="es">Evidencia de condiciones de expedicion para lotes premium o exportacion.</p><p data-lang="en">Shipment-condition evidence for premium or export lots.</p></article></div></div></section>
 
-    <section id="method">
-      <div class="wrap method">
-        <div class="method-box">
-          <span class="eyebrow" style="background:rgba(255,255,255,.12);color:#e0f2fe;border-color:rgba(255,255,255,.18)"><span class="dot" aria-hidden="true"></span> 90-day pilot</span>
-          <h2>Evidence before rollout.</h2>
-          <p>The pilot is deliberately narrow: one operational pain, one scope, one baseline, and one go / no-go recommendation at the end.</p>
-          <a class="button" href="mailto:hello@sentia.example?subject=WineOps%2090-day%20pilot">Request example pilot charter</a>
-        </div>
-        <div class="steps">
-          <article class="step"><span class="step-number">1</span><div><h3>Discovery and baseline</h3><p>Map the current routine, owners, data sources, and what counts as useful evidence.</p></div></article>
-          <article class="step"><span class="step-number">2</span><div><h3>Instrumentation plan</h3><p>Select the room, tanks, barrels, lots, or dispatch events that belong inside the pilot scope.</p></div></article>
-          <article class="step"><span class="step-number">3</span><div><h3>Operating routine</h3><p>Run alert rules, event capture, user roles, and review moments without forcing a broad rollout.</p></div></article>
-          <article class="step"><span class="step-number">4</span><div><h3>Final evidence pack</h3><p>Review adoption, unresolved exceptions, response routines, and the case for continuing or stopping.</p></div></article>
-        </div>
-      </div>
-    </section>
+    <section id="method"><div class="wrap method"><div class="method-box"><span class="eyebrow"><span class="dot"></span><span data-lang="es">Piloto de 90 dias</span><span data-lang="en">90-day pilot</span></span><h2 data-lang="es">Evidencia antes de escalar.</h2><h2 data-lang="en">Evidence before rollout.</h2><p data-lang="es">El piloto es estrecho a proposito: un dolor, un alcance, una linea base y una recomendacion go / no-go al cierre.</p><p data-lang="en">The pilot is narrow on purpose: one pain, one scope, one baseline, and a go / no-go recommendation at close.</p><a class="button" href="#form" data-lang="es">Completar formulario</a><a class="button" href="#form" data-lang="en">Complete form</a></div><div class="steps"><article class="step"><span class="step-number">1</span><div><h3 data-lang="es">Discovery y linea base</h3><h3 data-lang="en">Discovery and baseline</h3><p data-lang="es">Rutina actual, responsables, fuentes de datos y evidencia util.</p><p data-lang="en">Current routine, owners, data sources, and useful evidence.</p></div></article><article class="step"><span class="step-number">2</span><div><h3 data-lang="es">Plan de instrumentacion</h3><h3 data-lang="en">Instrumentation plan</h3><p data-lang="es">Sala, depositos, barricas, lotes o eventos dentro del alcance.</p><p data-lang="en">Room, tanks, barrels, lots, or events inside the scope.</p></div></article><article class="step"><span class="step-number">3</span><div><h3 data-lang="es">Rutina operativa</h3><h3 data-lang="en">Operating routine</h3><p data-lang="es">Reglas, eventos, roles y momentos de revision sin despliegue amplio.</p><p data-lang="en">Rules, events, roles, and review moments without broad rollout.</p></div></article><article class="step"><span class="step-number">4</span><div><h3 data-lang="es">Paquete de evidencia</h3><h3 data-lang="en">Evidence pack</h3><p data-lang="es">Adopcion, excepciones, respuesta y decision de continuidad.</p><p data-lang="en">Adoption, exceptions, response, and continuity decision.</p></div></article></div></div></section>
 
-    <section id="evidence">
-      <div class="wrap">
-        <div class="evidence">
-          <div class="section-head" style="margin-bottom:0">
-            <h2>What the winery should be able to judge after 90 days.</h2>
-            <p>The page avoids savings, legal-compliance, and automation promises. The pilot is useful only if it creates enough operating evidence for a responsible decision.</p>
-          </div>
-          <div class="evidence-grid">
-            <div class="evidence-item"><strong>Alert usefulness</strong><span>Were the rules relevant, timely, and practical for the team?</span></div>
-            <div class="evidence-item"><strong>Response routine</strong><span>Did ownership and event closure become easier to review?</span></div>
-            <div class="evidence-item"><strong>Traceability</strong><span>Can movements, exceptions, or condition events be reconstructed?</span></div>
-            <div class="evidence-item"><strong>Adoption</strong><span>Did the working routine fit the people who would use it daily?</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <section id="evidence"><div class="wrap"><div class="evidence"><div class="section-head"><h2 data-lang="es">Que deberia poder juzgar la bodega.</h2><h2 data-lang="en">What the winery should be able to judge.</h2><p data-lang="es">Sin prometer ahorros, cumplimiento legal ni automatizacion total. El piloto vale si crea evidencia suficiente para decidir con responsabilidad.</p><p data-lang="en">No savings, legal-compliance, or full-automation promises. The pilot is useful if it creates enough evidence for a responsible decision.</p></div><div class="evidence-grid"><div class="evidence-item"><strong data-lang="es">Utilidad de alertas</strong><strong data-lang="en">Alert usefulness</strong><span data-lang="es">Reglas relevantes, a tiempo y usables por el equipo.</span><span data-lang="en">Relevant, timely rules that the team can use.</span></div><div class="evidence-item"><strong data-lang="es">Rutina de respuesta</strong><strong data-lang="en">Response routine</strong><span data-lang="es">Responsables y cierre de eventos mas revisables.</span><span data-lang="en">Clearer ownership and event closure.</span></div><div class="evidence-item"><strong data-lang="es">Trazabilidad</strong><strong data-lang="en">Traceability</strong><span data-lang="es">Movimientos, excepciones o condiciones reconstruibles.</span><span data-lang="en">Reconstructable movements, exceptions, or conditions.</span></div><div class="evidence-item"><strong data-lang="es">Adopcion</strong><strong data-lang="en">Adoption</strong><span data-lang="es">Encaje con las personas que lo usarian a diario.</span><span data-lang="en">Fit with the people who would use it daily.</span></div></div></div></div></section>
 
-    <section id="contact">
-      <div class="wrap">
-        <div class="cta-panel">
-          <div>
-            <h2>Use this page as a GitHub Pages starting point.</h2>
-            <p>This is a static example for Sentia Enterprise. Replace the placeholder email, connect real assets, and keep every public claim tied to pilot evidence.</p>
-          </div>
-          <a class="button" href="mailto:hello@sentia.example?subject=WineOps%20landing%20page%20example">Contact Sentia</a>
-        </div>
-      </div>
-    </section>
+    <section id="form"><div class="wrap"><div class="form-card"><div class="form-copy"><span class="eyebrow"><span class="dot"></span><span data-lang="es">Formulario de encaje</span><span data-lang="en">Fit form</span></span><h2 data-lang="es">Cuéntanos que dolor operativo quieres revisar.</h2><h2 data-lang="en">Tell us which operating pain you want to review.</h2><p data-lang="es">Usa el formulario para preparar una primera conversacion. Si el formulario embebido no carga por permisos de Google, abre el enlace externo.</p><p data-lang="en">Use the form to prepare a first conversation. If the embedded form does not load because of Google permissions, open the external link.</p><div class="form-actions"><a class="button" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="es">Abrir formulario</a><a class="button" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="en">Open form</a><a class="button secondary" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/edit" data-lang="es">Editar en Google</a><a class="button secondary" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/edit" data-lang="en">Edit in Google</a></div></div><iframe class="form-frame" title="Formulario Sentia WineOps" src="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform?embedded=true" loading="lazy">Cargando formulario...</iframe></div></div></section>
+
+    <section id="contact"><div class="wrap"><div class="cta-panel"><div><h2 data-lang="es">Empieza por una zona, una rutina y una decision.</h2><h2 data-lang="en">Start with one zone, one routine, and one decision.</h2><p data-lang="es">Esta pagina es un ejemplo estatico para GitHub Pages. Sustituye datos de contacto finales y mantén cada claim publico ligado a evidencia de piloto.</p><p data-lang="en">This is a static GitHub Pages example. Replace final contact data and keep every public claim tied to pilot evidence.</p></div><a class="button" href="#form" data-lang="es">Evaluar encaje</a><a class="button" href="#form" data-lang="en">Assess fit</a></div></div></section>
   </main>
-
-  <footer>
-    <div class="wrap footer-grid">
-      <div>Sentia WineOps Â· Example static page</div>
-      <div>Navarra / Rioja winery operations pilots</div>
-    </div>
-  </footer>
+  <footer><div class="wrap footer-grid"><div>Sentia WineOps &middot; Pilotos operativos para bodegas</div><div>Navarra · Ribera · Rioja</div></div></footer>
+  <script>
+    const buttons = document.querySelectorAll('[data-set-lang]');
+    const setLanguage = (language) => {
+      const isEnglish = language === 'en';
+      document.body.classList.toggle('lang-en', isEnglish);
+      document.documentElement.lang = language;
+      document.title = isEnglish ? 'Sentia WineOps | Winery operations pilots' : 'Sentia WineOps | Pilotos operativos para bodegas';
+      buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.setLang === language)));
+      localStorage.setItem('sentia-language', language);
+    };
+    buttons.forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.setLang)));
+    setLanguage(localStorage.getItem('sentia-language') || 'es');
+  </script>
 </body>
 </html>

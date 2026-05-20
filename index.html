@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Sentia WineOps: pilotos de 90 dias para bodegas de Navarra, Ribera y Rioja, con alcance acotado, KPI y evidencia operativa." />
   <title>Sentia WineOps | Pilotos operativos para bodegas</title>
+  <meta name="theme-color" content="#b11226" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Sentia WineOps | Pilotos operativos para bodegas" />
+  <meta property="og:description" content="Pilotos acotados de 90 dias para mejorar visibilidad operativa, trazabilidad y evidencia de decision en bodegas." />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Sentia WineOps","email":"sentia.enterprise@gmail.com","areaServed":["Navarra","La Rioja","Ribera"],"description":"Pilotos operativos de 90 dias para bodegas con alcance acotado, KPI pactados y evidencia go/no-go."}</script>
   <style>
     :root {
       color-scheme: light;
@@ -131,6 +138,18 @@
     .form-frame { min-height: 620px; width: 100%; border: 1px solid var(--line); border-radius: 22px; background: var(--sand-soft); }
     .form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
     .cta-panel { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+    .fit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .fit-card { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px; background: rgba(255,253,247,0.9); box-shadow: 0 14px 36px rgba(80,36,18,.06); }
+    .fit-card strong { display: block; margin-bottom: 8px; color: var(--rioja-red); font-size: 1.06rem; }
+    .fit-card p { margin-bottom: 0; color: var(--muted); }
+    .faq-list { display: grid; gap: 12px; }
+    details { border: 1px solid var(--line); border-radius: 18px; background: rgba(255,253,247,.9); padding: 18px 20px; box-shadow: 0 10px 24px rgba(80,36,18,.05); }
+    summary { color: var(--rioja-red); cursor: pointer; font-weight: 900; }
+    details p { margin: 12px 0 0; color: var(--muted); }
+    .privacy-note { border-left: 5px solid var(--vine-green); border-radius: 18px; padding: 18px 20px; background: #f8efd9; color: var(--muted); }
+    .privacy-note strong { color: var(--vine-green); }
+    .sticky-cta { position: fixed; right: 18px; bottom: 18px; z-index: 12; display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border-radius: 999px; color: #fff8e8; background: var(--vine-green); box-shadow: 0 16px 40px rgba(35,98,58,.25); font-weight: 900; }
+    .sticky-cta:hover, .sticky-cta:focus-visible { background: #1b4f2d; outline: 3px solid rgba(35,98,58,.24); outline-offset: 3px; }
     footer { padding: 36px 0 48px; color: var(--muted); }
     .footer-grid { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding-top: 24px; font-size: 0.92rem; }
 
@@ -141,7 +160,7 @@
 
     @media (max-width: 1040px) {
       .hero-grid, .method, .form-card, .cta-panel { grid-template-columns: 1fr; }
-      .cards, .modules, .evidence-grid { grid-template-columns: repeat(2, 1fr); }
+      .cards, .modules, .evidence-grid, .fit-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 720px) {
       .wrap { width: min(100% - 28px, var(--max)); }
@@ -152,11 +171,29 @@
       .language-switcher, .nav > .button { width: 100%; }
       .language-switcher button { flex: 1; }
       .hero { padding-top: 48px; }
-      h1 { font-size: clamp(2.25rem, 13vw, 3.35rem); }
+      h1 { font-size: clamp(2rem, 11vw, 3rem); line-height: 1; letter-spacing: -0.055em; overflow-wrap: break-word; }
+      .lead, .section-head p, .panel-title span { overflow-wrap: anywhere; }
+      .lead { max-width: 300px; font-size: 1rem; }
+      .panel-head { align-items: flex-start; flex-wrap: wrap; }
+      .status { white-space: normal; }
+      .landscape-card { border-radius: 24px; }
+      .wrap { width: min(326px, calc(100vw - 64px)); }
+      .eyebrow, .hero-note span, .button, .status, .contact-banner a { max-width: 100%; overflow-wrap: anywhere; }
+      .hero-note span { width: 100%; }
+      .panel-title, .metric, .timeline span { min-width: 0; }
+      .timeline { width: 100%; }
+      .sticky-cta { max-width: calc(100vw - 28px); white-space: normal; text-align: center; }
+      body * { max-width: 100%; }
+      .hero-actions { display: grid; grid-template-columns: 1fr; }
+      .button { width: 100%; min-width: 0; }
+      .contact-banner-inner { width: min(100% - 32px, var(--max)); }
+      .contact-banner a { word-break: break-all; }
+      .metric-grid, .panel-head { width: 100%; }
       .hero-grid > *, .landscape-card, .panel { min-width: 0; max-width: 100%; }
       .hero-actions .button { width: 100%; }
       .panel { margin-left: 10px; margin-right: 10px; }
-      .metric-grid, .cards, .modules, .evidence-grid { grid-template-columns: 1fr; }
+      .metric-grid, .cards, .modules, .evidence-grid, .fit-grid { grid-template-columns: 1fr; }
+      .sticky-cta { left: 14px; right: 14px; justify-content: center; }
       .timeline li, .step { grid-template-columns: 1fr; }
       .form-frame { min-height: 560px; }
       .cta-panel { padding: 24px; }
@@ -187,7 +224,9 @@
         <ul>
           <li><a href="#modules" data-lang="es">Modulos</a><a href="#modules" data-lang="en">Modules</a></li>
           <li><a href="#method" data-lang="es">Piloto 90 dias</a><a href="#method" data-lang="en">90-day pilot</a></li>
+          <li><a href="#fit" data-lang="es">Encaje</a><a href="#fit" data-lang="en">Fit</a></li>
           <li><a href="#form" data-lang="es">Formulario</a><a href="#form" data-lang="en">Form</a></li>
+          <li><a href="#faq" data-lang="es">FAQ</a><a href="#faq" data-lang="en">FAQ</a></li>
         </ul>
       </nav>
       <div class="language-switcher" role="group" aria-label="Seleccion de idioma">
@@ -242,11 +281,17 @@
 
     <section id="modules"><div class="wrap"><div class="section-head"><h2 data-lang="es">Modulos WineOps para empezar por un dolor concreto.</h2><h2 data-lang="en">WineOps modules for one specific pain first.</h2><p data-lang="es">Empezar por FermentWatch o BarrelTrack/BarrelIQ. Anadir CellarClimate o WineTransit solo cuando adopcion, riesgo o prioridad comercial lo justifiquen.</p><p data-lang="en">Start with FermentWatch or BarrelTrack/BarrelIQ. Add CellarClimate or WineTransit only when adoption, risk, or commercial priority supports it.</p></div><div class="modules"><article class="module"><span class="tag">Core</span><h3>FermentWatch</h3><p data-lang="es">Alertas tempranas, historico de deposito y cierre de eventos en fermentacion.</p><p data-lang="en">Early alerts, tank history, and event closure for fermentation.</p></article><article class="module"><span class="tag">Core</span><h3>BarrelTrack</h3><p data-lang="es">Trazabilidad de ubicaciones, movimientos y eventos de barrica por zona.</p><p data-lang="en">Traceability for barrel locations, movements, and zone events.</p></article><article class="module"><span class="tag" data-lang="es">Decision</span><span class="tag" data-lang="en">Decision</span><h3>BarrelIQ</h3><p data-lang="es">Patrones de excepcion, notas de decision y logica de escalado.</p><p data-lang="en">Exception patterns, decision notes, and escalation logic.</p></article><article class="module"><span class="tag" data-lang="es">Expansion</span><span class="tag" data-lang="en">Expansion</span><h3>CellarClimate</h3><p data-lang="es">Visibilidad climatica por sala o zona cuando afecta a calidad o evidencia interna.</p><p data-lang="en">Room or zone climate visibility when it affects quality or internal evidence.</p></article><article class="module"><span class="tag" data-lang="es">Expansion</span><span class="tag" data-lang="en">Expansion</span><h3>WineTransit</h3><p data-lang="es">Evidencia de condiciones de expedicion para lotes premium o exportacion.</p><p data-lang="en">Shipment-condition evidence for premium or export lots.</p></article></div></div></section>
 
+
+    <section id="fit"><div class="wrap"><div class="section-head"><h2 data-lang="es">Cuando tiene sentido pedir un piloto.</h2><h2 data-lang="en">When a pilot is worth requesting.</h2><p data-lang="es">WineOps encaja mejor cuando hay una rutina concreta que revisar, un equipo que pueda usar la evidencia y una decision que tomar al final del periodo.</p><p data-lang="en">WineOps fits best when there is a specific routine to review, a team that can use the evidence, and a decision to make at the end of the period.</p></div><div class="fit-grid"><article class="fit-card"><strong data-lang="es">Dolor operativo claro</strong><strong data-lang="en">Clear operating pain</strong><p data-lang="es">Fermentacion, barricas, clima de sala o expedicion con eventos que hoy cuesta seguir.</p><p data-lang="en">Fermentation, barrels, room climate, or dispatch events that are hard to follow today.</p></article><article class="fit-card"><strong data-lang="es">Alcance pequeno</strong><strong data-lang="en">Small scope</strong><p data-lang="es">Una sala, zona, lote o conjunto de activos donde se pueda medir sin cambiar toda la bodega.</p><p data-lang="en">One room, zone, lot, or asset group where the winery can measure without changing everything.</p></article><article class="fit-card"><strong data-lang="es">Responsable interno</strong><strong data-lang="en">Internal owner</strong><p data-lang="es">Una persona de operaciones, enologia o calidad que revise incidencias y aprendizaje.</p><p data-lang="en">Someone in operations, winemaking, or quality who reviews incidents and learning.</p></article></div></div></section>
+
     <section id="method"><div class="wrap method"><div class="method-box"><span class="eyebrow"><span class="dot"></span><span data-lang="es">Piloto de 90 dias</span><span data-lang="en">90-day pilot</span></span><h2 data-lang="es">Evidencia antes de escalar.</h2><h2 data-lang="en">Evidence before rollout.</h2><p data-lang="es">El piloto es estrecho a proposito: un dolor, un alcance, una linea base y una recomendacion go / no-go al cierre.</p><p data-lang="en">The pilot is narrow on purpose: one pain, one scope, one baseline, and a go / no-go recommendation at close.</p><a class="button" href="#form" data-lang="es">Completar formulario</a><a class="button" href="#form" data-lang="en">Complete form</a></div><div class="steps"><article class="step"><span class="step-number">1</span><div><h3 data-lang="es">Discovery y linea base</h3><h3 data-lang="en">Discovery and baseline</h3><p data-lang="es">Rutina actual, responsables, fuentes de datos y evidencia util.</p><p data-lang="en">Current routine, owners, data sources, and useful evidence.</p></div></article><article class="step"><span class="step-number">2</span><div><h3 data-lang="es">Plan de instrumentacion</h3><h3 data-lang="en">Instrumentation plan</h3><p data-lang="es">Sala, depositos, barricas, lotes o eventos dentro del alcance.</p><p data-lang="en">Room, tanks, barrels, lots, or events inside the scope.</p></div></article><article class="step"><span class="step-number">3</span><div><h3 data-lang="es">Rutina operativa</h3><h3 data-lang="en">Operating routine</h3><p data-lang="es">Reglas, eventos, roles y momentos de revision sin despliegue amplio.</p><p data-lang="en">Rules, events, roles, and review moments without broad rollout.</p></div></article><article class="step"><span class="step-number">4</span><div><h3 data-lang="es">Paquete de evidencia</h3><h3 data-lang="en">Evidence pack</h3><p data-lang="es">Adopcion, excepciones, respuesta y decision de continuidad.</p><p data-lang="en">Adoption, exceptions, response, and continuity decision.</p></div></article></div></div></section>
 
     <section id="evidence"><div class="wrap"><div class="evidence"><div class="section-head"><h2 data-lang="es">Que deberia poder juzgar la bodega.</h2><h2 data-lang="en">What the winery should be able to judge.</h2><p data-lang="es">Sin prometer ahorros, cumplimiento legal ni automatizacion total. El piloto vale si crea evidencia suficiente para decidir con responsabilidad.</p><p data-lang="en">No savings, legal-compliance, or full-automation promises. The pilot is useful if it creates enough evidence for a responsible decision.</p></div><div class="evidence-grid"><div class="evidence-item"><strong data-lang="es">Utilidad de alertas</strong><strong data-lang="en">Alert usefulness</strong><span data-lang="es">Reglas relevantes, a tiempo y usables por el equipo.</span><span data-lang="en">Relevant, timely rules that the team can use.</span></div><div class="evidence-item"><strong data-lang="es">Rutina de respuesta</strong><strong data-lang="en">Response routine</strong><span data-lang="es">Responsables y cierre de eventos mas revisables.</span><span data-lang="en">Clearer ownership and event closure.</span></div><div class="evidence-item"><strong data-lang="es">Trazabilidad</strong><strong data-lang="en">Traceability</strong><span data-lang="es">Movimientos, excepciones o condiciones reconstruibles.</span><span data-lang="en">Reconstructable movements, exceptions, or conditions.</span></div><div class="evidence-item"><strong data-lang="es">Adopcion</strong><strong data-lang="en">Adoption</strong><span data-lang="es">Encaje con las personas que lo usarian a diario.</span><span data-lang="en">Fit with the people who would use it daily.</span></div></div></div></div></section>
 
-    <section id="form"><div class="wrap"><div class="form-card"><div class="form-copy"><span class="eyebrow"><span class="dot"></span><span data-lang="es">Formulario de encaje</span><span data-lang="en">Fit form</span></span><h2 data-lang="es">Cuéntanos que dolor operativo quieres revisar.</h2><h2 data-lang="en">Tell us which operating pain you want to review.</h2><p data-lang="es">Usa el formulario para preparar una primera conversacion. Si el formulario embebido no carga por permisos de Google, abre el enlace externo.</p><p data-lang="en">Use the form to prepare a first conversation. If the embedded form does not load because of Google permissions, open the external link.</p><div class="form-actions"><a class="button" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="es">Abrir formulario</a><a class="button" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="en">Open form</a><a class="button secondary" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/edit" data-lang="es">Editar en Google</a><a class="button secondary" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/edit" data-lang="en">Edit in Google</a></div></div><iframe class="form-frame" title="Formulario Sentia WineOps" src="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform?embedded=true" loading="lazy">Cargando formulario...</iframe></div></div></section>
+
+    <section id="faq"><div class="wrap"><div class="section-head"><h2 data-lang="es">Preguntas que suelen aparecer antes de una primera llamada.</h2><h2 data-lang="en">Questions that usually come before a first call.</h2><p data-lang="es">Respuestas prudentes para saber si merece la pena preparar discovery.</p><p data-lang="en">Practical answers to decide whether discovery is worth preparing.</p></div><div class="faq-list"><details><summary data-lang="es">¿Es una implantacion completa?</summary><summary data-lang="en">Is this a full rollout?</summary><p data-lang="es">No. El punto de entrada recomendado es un piloto acotado de 90 dias con alcance, responsables y KPI definidos antes de empezar.</p><p data-lang="en">No. The recommended entry point is a scoped 90-day pilot with scope, owners, and KPI defined before starting.</p></details><details><summary data-lang="es">¿Promete cumplimiento o ahorro?</summary><summary data-lang="en">Does it promise compliance or savings?</summary><p data-lang="es">No. Puede apoyar trazabilidad, evidencia interna y visibilidad operativa. Cualquier decision legal o economica necesita contexto y validacion de la bodega.</p><p data-lang="en">No. It can support traceability, internal evidence, and operating visibility. Legal or economic decisions need winery context and validation.</p></details><details><summary data-lang="es">¿Que se decide al final?</summary><summary data-lang="en">What is decided at the end?</summary><p data-lang="es">Si el piloto merece continuidad, ajuste de alcance o cierre ordenado, usando la evidencia recogida durante el periodo.</p><p data-lang="en">Whether the pilot deserves continuation, scope adjustment, or an orderly stop using the evidence collected during the period.</p></details></div></div></section>
+
+    <section id="form"><div class="wrap"><div class="form-card"><div class="form-copy"><span class="eyebrow"><span class="dot"></span><span data-lang="es">Formulario de encaje</span><span data-lang="en">Fit form</span></span><h2 data-lang="es">Cuéntanos que dolor operativo quieres revisar.</h2><h2 data-lang="en">Tell us which operating pain you want to review.</h2><p data-lang="es">Usa el formulario para preparar una primera conversacion. Si el formulario embebido no carga por permisos de Google, abre el enlace externo.</p><p data-lang="en">Use the form to prepare a first conversation. If the embedded form does not load because of Google permissions, open the external link.</p><div class="form-actions"><a class="button" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="es">Abrir formulario</a><a class="button" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform" data-lang="en">Open form</a><a class="button secondary" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/edit" data-lang="es">Editar en Google</a><a class="button secondary" href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/edit" data-lang="en">Edit in Google</a></div></div><div class="privacy-note"><strong data-lang="es">Nota de privacidad:</strong><strong data-lang="en">Privacy note:</strong> <span data-lang="es">usa el formulario o el email solo para solicitar contacto comercial. No incluyas credenciales, datos sensibles de clientes ni informacion personal no necesaria.</span><span data-lang="en">use the form or email only to request commercial contact. Do not include credentials, sensitive client data, or unnecessary personal information.</span></div><iframe class="form-frame" title="Formulario Sentia WineOps" src="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform?embedded=true" loading="lazy">Cargando formulario...</iframe></div></div></section>
 
     <section id="contact"><div class="wrap"><div class="cta-panel"><div><h2 data-lang="es">Empieza por una zona, una rutina y una decision.</h2><h2 data-lang="en">Start with one zone, one routine, and one decision.</h2><p data-lang="es">Esta pagina es un ejemplo estatico para GitHub Pages. Sustituye datos de contacto finales y mantén cada claim publico ligado a evidencia de piloto.</p><p data-lang="en">This is a static GitHub Pages example. Replace final contact data and keep every public claim tied to pilot evidence.</p></div><a class="button" href="#form" data-lang="es">Evaluar encaje</a><a class="button" href="#form" data-lang="en">Assess fit</a></div></div></section>
   </main>

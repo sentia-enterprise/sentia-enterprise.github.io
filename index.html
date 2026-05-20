@@ -63,6 +63,10 @@
     nav ul { display: flex; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; }
     nav a { display: inline-flex; min-height: 40px; align-items: center; border-radius: 999px; padding: 0 13px; color: var(--muted); font-weight: 750; font-size: 0.92rem; transition: background 180ms ease, color 180ms ease; cursor: pointer; }
     nav a:hover, nav a:focus-visible { background: var(--sand-soft); color: var(--rioja-red); outline: none; }
+    .contact-banner { border-bottom: 1px solid rgba(231, 215, 184, 0.9); background: linear-gradient(90deg, var(--rioja-red), var(--navarra-red), var(--vine-green)); color: #fff8e8; }
+    .contact-banner-inner { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 42px; text-align: center; font-size: 0.92rem; font-weight: 800; }
+    .contact-banner a { text-decoration: underline; text-underline-offset: 3px; }
+    .contact-banner a:hover, .contact-banner a:focus-visible { color: var(--sand-soft); outline: 2px solid rgba(255,255,255,.45); outline-offset: 3px; border-radius: 6px; }
     .language-switcher { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255, 253, 247, 0.82); }
     .language-switcher button { min-height: 34px; border: 0; border-radius: 999px; padding: 0 12px; background: transparent; color: var(--muted); font-weight: 850; cursor: pointer; }
     .language-switcher button[aria-pressed="true"] { color: white; background: var(--vine-green); }
@@ -144,6 +148,7 @@
       header { position: static; }
       .nav { align-items: flex-start; flex-wrap: wrap; }
       nav ul { display: none; }
+      .contact-banner-inner { align-items: flex-start; flex-direction: column; padding: 10px 0; gap: 2px; }
       .language-switcher, .nav > .button { width: 100%; }
       .language-switcher button { flex: 1; }
       .hero { padding-top: 48px; }
@@ -166,6 +171,13 @@
   <a class="skip-link" href="#main" data-lang="es">Saltar al contenido</a>
   <a class="skip-link" href="#main" data-lang="en">Skip to content</a>
   <header>
+    <div class="contact-banner" aria-label="Contacto directo">
+      <div class="wrap contact-banner-inner">
+        <span data-lang="es">¿Prefieres escribirnos directamente?</span>
+        <span data-lang="en">Prefer to contact us directly?</span>
+        <a href="mailto:sentia.enterprise@gmail.com?subject=WineOps%20Sentia">sentia.enterprise@gmail.com</a>
+      </div>
+    </div>
     <div class="wrap nav" aria-label="Navegacion principal">
       <a class="brand" href="#top" aria-label="Sentia WineOps inicio">
         <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Marca de senal operativa Sentia</title><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 3 5-7"/></svg></span>

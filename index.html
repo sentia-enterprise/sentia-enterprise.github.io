@@ -241,10 +241,16 @@
       document.body.classList.toggle('lang-en', isEnglish);
       document.documentElement.lang = language;
       document.title = isEnglish ? 'Sentia WineOps | Winery operations pilots' : 'Sentia WineOps | Pilotos operativos para bodegas';
-      buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.setLang === language)));
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.setLang === language));
+      });
       localStorage.setItem('sentia-language', language);
     };
-    buttons.forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.setLang)));
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        setLanguage(button.dataset.setLang);
+      });
+    });
     setLanguage(localStorage.getItem('sentia-language') || 'es');
   </script>
 </body>

@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sentia WineOps example landing page for practical winery operations pilots in Navarra and Rioja." />
+  <title>Sentia WineOps | 90-Day Winery Operations Pilots</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #dbeafe;
+      --surface: #ffffff;
+      --surface-soft: #f0f9ff;
+      --brand: #0c4a6e;
+      --brand-2: #0ea5e9;
+      --accent: #f97316;
+      --accent-soft: #fff7ed;
+      --success: #166534;
+      --shadow: 0 24px 70px rgba(12, 74, 110, 0.13);
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(14, 165, 233, 0.15), transparent 34rem),
+        linear-gradient(180deg, #f8fcff 0%, #ffffff 42%, #f8fafc 100%);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      z-index: 10;
+      background: var(--ink);
+      color: white;
+      padding: 10px 14px;
+      border-radius: 12px;
+    }
+
+    .skip-link:focus { left: 12px; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      backdrop-filter: blur(16px);
+      background: rgba(248, 252, 255, 0.86);
+      border-bottom: 1px solid rgba(219, 234, 254, 0.8);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--brand);
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      color: white;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow: 0 12px 28px rgba(14, 165, 233, 0.22);
+    }
+
+    .brand-mark svg { width: 22px; height: 22px; }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    nav a {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 14px;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 0.93rem;
+      transition: color 180ms ease, background 180ms ease;
+      cursor: pointer;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      color: var(--brand);
+      background: #e0f2fe;
+      outline: none;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 46px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0 18px;
+      font-weight: 800;
+      color: white;
+      background: var(--accent);
+      box-shadow: 0 15px 30px rgba(249, 115, 22, 0.22);
+      transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      cursor: pointer;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+      background: #ea580c;
+      box-shadow: 0 18px 36px rgba(249, 115, 22, 0.28);
+      outline: 3px solid rgba(249, 115, 22, 0.25);
+      outline-offset: 3px;
+    }
+
+    .button.secondary {
+      color: var(--brand);
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .button.secondary:hover,
+    .button.secondary:focus-visible {
+      background: #f0f9ff;
+      box-shadow: 0 12px 28px rgba(12, 74, 110, 0.1);
+    }
+
+    main { overflow: hidden; }
+
+    .hero {
+      padding: 86px 0 54px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
+      gap: 52px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--brand);
+      background: rgba(255, 255, 255, 0.72);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin: 24px 0 20px;
+      font-size: clamp(2.65rem, 6vw, 5.65rem);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+      color: var(--brand);
+    }
+
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(1.06rem, 2vw, 1.25rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .hero-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 0.94rem;
+    }
+
+    .hero-note span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: white;
+      border: 1px solid var(--line);
+    }
+
+    .device {
+      position: relative;
+      border: 1px solid rgba(219, 234, 254, 0.95);
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .device::before {
+      content: "";
+      position: absolute;
+      inset: -55px -65px auto auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 999px;
+      background: rgba(249, 115, 22, 0.12);
+      z-index: -1;
+    }
+
+    .panel {
+      border-radius: 24px;
+      padding: 20px;
+      background: linear-gradient(180deg, #ffffff, #f8fcff);
+      border: 1px solid #e2e8f0;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .panel-title strong {
+      display: block;
+      color: var(--brand);
+      font-size: 1.02rem;
+    }
+
+    .panel-title span { color: var(--muted); font-size: 0.88rem; }
+
+    .status {
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--success);
+      background: #dcfce7;
+      font-size: 0.78rem;
+      font-weight: 850;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .metric {
+      border-radius: 18px;
+      padding: 14px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--brand);
+      font-size: 1.25rem;
+      letter-spacing: -0.04em;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 650;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline li {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 14px;
+      padding: 13px;
+      border-radius: 18px;
+      background: white;
+      border: 1px solid #e2e8f0;
+    }
+
+    .timeline time {
+      color: var(--brand-2);
+      font-weight: 850;
+      font-size: 0.82rem;
+    }
+
+    .timeline strong { display: block; color: var(--ink); }
+    .timeline span { color: var(--muted); font-size: 0.9rem; }
+
+    section { padding: 72px 0; }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 30px;
+    }
+
+    .section-head h2 {
+      margin-bottom: 12px;
+      color: var(--brand);
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .section-head p { color: var(--muted); font-size: 1.08rem; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.05);
+    }
+
+    .card h3 {
+      color: var(--brand);
+      margin-bottom: 8px;
+      font-size: 1.22rem;
+      letter-spacing: -0.03em;
+    }
+
+    .card p { color: var(--muted); margin-bottom: 0; }
+
+    .icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-bottom: 18px;
+      border-radius: 16px;
+      color: var(--brand);
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+    }
+
+    .icon svg { width: 23px; height: 23px; }
+
+    .modules {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .module {
+      min-height: 220px;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      transition: border 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .module:hover {
+      transform: translateY(-2px);
+      border-color: #7dd3fc;
+      box-shadow: 0 18px 40px rgba(12, 74, 110, 0.1);
+    }
+
+    .module .tag {
+      display: inline-flex;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      padding: 6px 9px;
+      color: var(--brand);
+      background: #e0f2fe;
+      font-size: 0.72rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .module h3 { margin-bottom: 8px; color: var(--ink); }
+    .module p { color: var(--muted); font-size: 0.94rem; }
+
+    .method {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .method-box {
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      background: var(--brand);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .method-box h2 {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .method-box p { color: #bae6fd; }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 22px;
+      background: white;
+      border: 1px solid #e2e8f0;
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      color: white;
+      background: linear-gradient(135deg, var(--brand-2), var(--brand));
+      font-weight: 900;
+    }
+
+    .step h3 { margin-bottom: 4px; color: var(--brand); }
+    .step p { margin-bottom: 0; color: var(--muted); }
+
+    .evidence {
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      background: var(--accent-soft);
+      border: 1px solid #fed7aa;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .evidence-item {
+      border-radius: 18px;
+      padding: 16px;
+      background: white;
+      border: 1px solid #ffedd5;
+    }
+
+    .evidence-item strong { display: block; color: #9a3412; margin-bottom: 5px; }
+    .evidence-item span { color: var(--muted); font-size: 0.9rem; }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      color: white;
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.28), transparent 24rem),
+        linear-gradient(135deg, #082f49, #0c4a6e);
+      box-shadow: var(--shadow);
+    }
+
+    .cta-panel h2 {
+      margin-bottom: 10px;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1;
+      letter-spacing: -0.055em;
+    }
+
+    .cta-panel p { color: #bae6fd; margin-bottom: 0; }
+
+    footer {
+      padding: 36px 0 48px;
+      color: var(--muted);
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 24px;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid,
+      .method,
+      .cta-panel { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+      .modules { grid-template-columns: repeat(2, 1fr); }
+      .evidence-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-panel { text-align: left; }
+    }
+
+    @media (max-width: 720px) {
+      .wrap { width: min(100% - 28px, var(--max)); }
+      header { position: static; }
+      .nav { align-items: flex-start; }
+      nav ul { display: none; }
+      .hero { padding-top: 54px; }
+      .hero-grid { gap: 30px; }
+      .metric-grid,
+      .cards,
+      .modules,
+      .evidence-grid { grid-template-columns: 1fr; }
+      .timeline li { grid-template-columns: 1fr; }
+      .step { grid-template-columns: 1fr; }
+      .cta-panel { padding: 24px; }
+      .footer-grid { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto;
+        transition-duration: 0.01ms;
+        animation-duration: 0.01ms;
+        animation-iteration-count: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header>
+    <div class="wrap nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Sentia WineOps home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Sentia operational signal mark</title><path d="M4 19V5"/><path d="M4 19h16"/><path d="m7 15 4-4 3 3 5-7"/></svg>
+        </span>
+        <span>Sentia WineOps</span>
+      </a>
+      <nav aria-label="Page sections">
+        <ul>
+          <li><a href="#modules">Modules</a></li>
+          <li><a href="#method">90-day pilot</a></li>
+          <li><a href="#evidence">Evidence</a></li>
+        </ul>
+      </nav>
+      <a class="button" href="mailto:hello@sentia.example?subject=WineOps%20pilot%20fit">Discuss pilot fit</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span> Winery operations Â· Navarra / Rioja</span>
+          <h1>Start with one winery pain. Prove the pilot before scaling.</h1>
+          <p class="lead">WineOps is Sentia's modular operating framework for wineries that need clearer signals, traceability, and evidence without starting a large transformation project.</p>
+          <div class="hero-actions">
+            <a class="button" href="#method">See the 90-day method</a>
+            <a class="button secondary" href="#modules">Explore modules</a>
+          </div>
+          <div class="hero-note" aria-label="Positioning notes">
+            <span>Scoped pilot first</span>
+            <span>Baseline and KPI agreed</span>
+            <span>Go / no-go evidence</span>
+          </div>
+        </div>
+
+        <aside class="device" aria-label="Example WineOps pilot dashboard preview">
+          <div class="panel">
+            <div class="panel-head">
+              <div class="panel-title">
+                <strong>FermentWatch pilot board</strong>
+                <span>Example view Â· one room, agreed KPI</span>
+              </div>
+              <span class="status">Pilot scope</span>
+            </div>
+            <div class="metric-grid">
+              <div class="metric"><strong>12</strong><span>tanks in scope</span></div>
+              <div class="metric"><strong>4</strong><span>alert rules</span></div>
+              <div class="metric"><strong>90d</strong><span>review window</span></div>
+            </div>
+            <ol class="timeline">
+              <li><time>Week 1</time><span><strong>Baseline</strong>Current routines, owners, thresholds, and handover points.</span></li>
+              <li><time>Week 3</time><span><strong>Capture</strong>Signals, events, and closure notes in one operating history.</span></li>
+              <li><time>Week 8</time><span><strong>Review</strong>Adoption, response time, unresolved events, and next decision.</span></li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="problem">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Built for operational uncertainty, not generic digital transformation.</h2>
+          <p>Many wineries already have skilled teams and established routines. WineOps focuses on the gaps where paper, memory, Excel, or disconnected systems make the next decision slower than it should be.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Clock and reaction time icon</title><path d="M12 8v5l3 3"/><circle cx="12" cy="12" r="9"/></svg></div>
+            <h3>Late reaction</h3>
+            <p>Fermentation deviations or room events are noticed, but the response path is not always visible across shifts.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Barrel and asset tracking icon</title><path d="M4 7h16"/><path d="M6 7v13h12V7"/><path d="M9 7V4h6v3"/></svg></div>
+            <h3>Asset uncertainty</h3>
+            <p>Barrels, lots, movements, and exceptions can become hard to reconstruct when the team needs a clear history.</p>
+          </article>
+          <article class="card">
+            <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Evidence flow icon</title><path d="M5 12h14"/><path d="M12 5v14"/><path d="m16 8 3 4-3 4"/><path d="m8 8-3 4 3 4"/></svg></div>
+            <h3>Evidence gap</h3>
+            <p>Teams may know what happened, but lack a simple evidence pack for review, audit support, or commercial discussion.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="modules">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>A modular portfolio for practical winery pilots.</h2>
+          <p>Start with the module that matches one current pain. Add expansion modules only when adoption, risk, or commercial priority makes the next step credible.</p>
+        </div>
+        <div class="modules" aria-label="WineOps modules">
+          <article class="module">
+            <span class="tag">Core</span>
+            <h3>FermentWatch</h3>
+            <p>Early alerts, tank history, event closure, and response-time evidence for fermentation control.</p>
+          </article>
+          <article class="module">
+            <span class="tag">Core</span>
+            <h3>BarrelTrack</h3>
+            <p>Traceability for barrel locations, movements, and operating events across defined winery zones.</p>
+          </article>
+          <article class="module">
+            <span class="tag">Decision layer</span>
+            <h3>BarrelIQ</h3>
+            <p>Exception patterns, decision notes, and escalation logic for barrel-related decisions.</p>
+          </article>
+          <article class="module">
+            <span class="tag">Expansion</span>
+            <h3>CellarClimate</h3>
+            <p>Room or zone climate visibility when conditions affect quality routines or internal audit evidence.</p>
+          </article>
+          <article class="module">
+            <span class="tag">Expansion</span>
+            <h3>WineTransit</h3>
+            <p>Shipment-condition evidence for premium or export lots where dispatch risk needs better records.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="wrap method">
+        <div class="method-box">
+          <span class="eyebrow" style="background:rgba(255,255,255,.12);color:#e0f2fe;border-color:rgba(255,255,255,.18)"><span class="dot" aria-hidden="true"></span> 90-day pilot</span>
+          <h2>Evidence before rollout.</h2>
+          <p>The pilot is deliberately narrow: one operational pain, one scope, one baseline, and one go / no-go recommendation at the end.</p>
+          <a class="button" href="mailto:hello@sentia.example?subject=WineOps%2090-day%20pilot">Request example pilot charter</a>
+        </div>
+        <div class="steps">
+          <article class="step"><span class="step-number">1</span><div><h3>Discovery and baseline</h3><p>Map the current routine, owners, data sources, and what counts as useful evidence.</p></div></article>
+          <article class="step"><span class="step-number">2</span><div><h3>Instrumentation plan</h3><p>Select the room, tanks, barrels, lots, or dispatch events that belong inside the pilot scope.</p></div></article>
+          <article class="step"><span class="step-number">3</span><div><h3>Operating routine</h3><p>Run alert rules, event capture, user roles, and review moments without forcing a broad rollout.</p></div></article>
+          <article class="step"><span class="step-number">4</span><div><h3>Final evidence pack</h3><p>Review adoption, unresolved exceptions, response routines, and the case for continuing or stopping.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="wrap">
+        <div class="evidence">
+          <div class="section-head" style="margin-bottom:0">
+            <h2>What the winery should be able to judge after 90 days.</h2>
+            <p>The page avoids savings, legal-compliance, and automation promises. The pilot is useful only if it creates enough operating evidence for a responsible decision.</p>
+          </div>
+          <div class="evidence-grid">
+            <div class="evidence-item"><strong>Alert usefulness</strong><span>Were the rules relevant, timely, and practical for the team?</span></div>
+            <div class="evidence-item"><strong>Response routine</strong><span>Did ownership and event closure become easier to review?</span></div>
+            <div class="evidence-item"><strong>Traceability</strong><span>Can movements, exceptions, or condition events be reconstructed?</span></div>
+            <div class="evidence-item"><strong>Adoption</strong><span>Did the working routine fit the people who would use it daily?</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="cta-panel">
+          <div>
+            <h2>Use this page as a GitHub Pages starting point.</h2>
+            <p>This is a static example for Sentia Enterprise. Replace the placeholder email, connect real assets, and keep every public claim tied to pilot evidence.</p>
+          </div>
+          <a class="button" href="mailto:hello@sentia.example?subject=WineOps%20landing%20page%20example">Contact Sentia</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>Sentia WineOps Â· Example static page</div>
+      <div>Navarra / Rioja winery operations pilots</div>
+    </div>
+  </footer>
+</body>
+</html>

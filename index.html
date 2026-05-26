@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sentia: Tecnología práctica para el control de bodegas en Navarra, La Rioja y País Vasco. Sensorización, trazabilidad y alertas." />
-  <title>Sentia | Tecnología Práctica para Bodegas</title>
+  <meta name="description" content="Sentia: Tecnología práctica para el control de bodegas en Navarra, La Rioja y País Vasco. Digitalización, IA, sensorización y trazabilidad." />
+  <title>Sentia | Tecnología Inteligente para Bodegas</title>
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap');
@@ -15,11 +15,11 @@
       --gold-accent: #D4AF37;
       --gold-light: #F3E5AB;
       --text-main: #F8F9FA;
-      --text-muted: #CBD5E1;
+      --text-muted: #E2E8F0;
       
-      --glass-bg: rgba(20, 10, 15, 0.45);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      --glass-bg: rgba(15, 5, 8, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.12);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
       
       --radius: 16px;
       --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -37,10 +37,9 @@
       overflow-x: hidden;
     }
 
-    /* Estilos para textos destacados */
     strong {
       color: #FFFFFF;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     /* BARRA DE PROGRESO DORADA */
@@ -62,22 +61,22 @@
       box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
     }
 
-    /* FONDO ESTÁTICO (Efecto "Ventana") */
+    /* FONDO LUMINOSO ESTÁTICO */
     .bg-fixed {
       position: fixed;
       inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=2000&auto=format&fit=crop');
+      background-image: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=2000&auto=format&fit=crop');
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
       z-index: -2;
     }
 
-    /* CAPA DE OSCURECIMIENTO */
+    /* CAPA DE OSCURECIMIENTO SUTIL */
     .bg-overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(135deg, rgba(15, 5, 8, 0.82) 0%, rgba(5, 5, 10, 0.96) 100%);
+      background: linear-gradient(135deg, rgba(60, 15, 25, 0.4) 0%, rgba(10, 5, 8, 0.6) 100%);
       z-index: -1;
     }
 
@@ -97,9 +96,9 @@
 
     /* HEADER GLASSMORPHISM */
     header {
-      background: rgba(10, 5, 8, 0.5);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: rgba(10, 5, 8, 0.4);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--glass-border);
       position: sticky;
       top: 0;
@@ -125,6 +124,12 @@
       color: var(--gold-accent);
     }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
@@ -146,13 +151,13 @@
       background-color: var(--wine-light);
       border-color: var(--wine-light);
       transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(156, 39, 68, 0.3);
+      box-shadow: 0 6px 16px rgba(156, 39, 68, 0.4);
     }
 
     .btn-outline {
-      background-color: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
     }
 
@@ -174,14 +179,16 @@
       line-height: 1.15;
       margin-bottom: 24px;
       letter-spacing: -1px;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.4); 
     }
 
     .hero p {
       font-size: 1.15rem;
-      color: var(--text-muted);
+      color: var(--white);
       max-width: 680px;
       margin: 0 auto 40px;
-      font-weight: 300;
+      font-weight: 400;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
     /* FEATURES & STEPS */
@@ -192,7 +199,7 @@
     .section-title {
       text-align: center;
       margin-bottom: 60px;
-      max-width: 650px;
+      max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -200,24 +207,26 @@
     .section-title h2 {
       font-size: 2.6rem;
       margin-bottom: 16px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
     .section-title p {
-      color: var(--text-muted);
+      color: var(--white);
       font-size: 1.1rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
     .grid, .step-list {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 32px;
     }
 
     /* TARJETAS CON EFECTO LINTERNA */
     .glow-effect {
       background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: var(--radius);
       border: 1px solid var(--glass-border);
       box-shadow: var(--glass-shadow);
@@ -230,7 +239,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(212, 175, 55, 0.12), transparent 40%);
+      background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(212, 175, 55, 0.15), transparent 40%);
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: 0;
@@ -243,8 +252,8 @@
 
     .glow-effect:hover {
       transform: translateY(-8px);
-      background: rgba(30, 15, 20, 0.55);
-      border-color: rgba(212, 175, 55, 0.2);
+      background: rgba(30, 10, 15, 0.75);
+      border-color: rgba(212, 175, 55, 0.25);
     }
 
     .glow-content {
@@ -261,12 +270,12 @@
       height: 52px;
       color: var(--gold-accent);
       margin-bottom: 24px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.2);
     }
 
     .glow-effect h3 {
@@ -288,7 +297,7 @@
       font-style: italic;
       line-height: 1;
       margin-bottom: 16px;
-      opacity: 0.5;
+      opacity: 0.6;
       transition: var(--transition);
     }
     
@@ -299,12 +308,12 @@
 
     /* CONTACT CTA */
     .contact {
-      padding: 80px 0 100px;
+      padding: 80px 0 120px;
       text-align: center;
     }
 
     .contact-box {
-      background: rgba(156, 39, 68, 0.15);
+      background: rgba(156, 39, 68, 0.25);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       padding: 70px 40px;
@@ -312,7 +321,7 @@
       max-width: 800px;
       margin: 0 auto;
       box-shadow: var(--glass-shadow);
-      border: 1px solid rgba(156, 39, 68, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .contact-box h2 {
@@ -322,7 +331,7 @@
 
     .contact-box p {
       margin-bottom: 40px;
-      color: var(--text-muted);
+      color: var(--white);
       font-size: 1.1rem;
       max-width: 500px;
       margin-left: auto;
@@ -342,23 +351,23 @@
 
     /* FOOTER */
     footer {
-      background: rgba(5, 5, 10, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 40px 0 20px;
+      background: rgba(5, 5, 10, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 40px 0 30px;
       text-align: center;
       color: var(--text-muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       font-size: 0.9rem;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-top: 15px;
-      font-size: 0.8rem;
-      opacity: 0.7;
+      gap: 24px;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      opacity: 0.8;
     }
 
     .footer-links a:hover {
@@ -392,7 +401,7 @@
     <div class="progress-bar" id="progressBar"></div>
   </div>
 
-  <!-- FONDO ESTÁTICO -->
+  <!-- FONDO LUMINOSO ESTÁTICO -->
   <div class="bg-fixed"></div>
   <div class="bg-overlay"></div>
 
@@ -401,7 +410,7 @@
       <div class="brand">
         Sentia<span>.</span>
       </div>
-      <div>
+      <div class="header-actions">
         <a href="#contacto" class="btn">Solicitar información</a>
       </div>
     </div>
@@ -411,10 +420,10 @@
     <section class="hero reveal active">
       <div class="container">
         <h1>Control total de tu bodega.<br>Sin complicaciones.</h1>
-        <p>Mejoramos los procesos operativos instalando <strong>sensores discretos</strong> y un panel de control intuitivo. Evita pérdidas, automatiza registros y toma mejores decisiones, <strong>sin cambiar tu forma de trabajar</strong>.</p>
+        <p>Impulsamos la eficiencia de tu bodega integrando <strong>monitorización IoT, digitalización e Inteligencia Artificial</strong>. Anticipa problemas, automatiza tareas y toma decisiones estratégicas basadas en datos, <strong>sin alterar vuestra forma de trabajar</strong>.</p>
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
-          <a href="#contacto" class="btn">Solicitar prueba piloto</a>
-          <a href="#soluciones" class="btn btn-outline">Ver soluciones</a>
+          <a href="#contacto" class="btn">Solicitar información</a>
+          <a href="#soluciones" class="btn btn-outline">Descubrir soluciones</a>
         </div>
       </div>
     </section>
@@ -422,7 +431,7 @@
     <section id="soluciones" class="features container">
       <div class="section-title reveal">
         <h2>Dónde podemos ayudarte</h2>
-        <p>Soluciones diseñadas desde la experiencia para facilitar el día a día del equipo de enología y producción.</p>
+        <p>La tecnología se adapta a tus necesidades. Estas son <strong>algunas de las soluciones principales</strong> que diseñamos para facilitar el día a día en producción:</p>
       </div>
       <div class="grid">
         
@@ -432,7 +441,7 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
             </div>
             <h3>Control de fermentación</h3>
-            <p>Monitoriza la <strong>temperatura y densidad</strong> de tus depósitos en tiempo real. Recibe alertas en tu móvil antes de que un desvío afecte a la calidad del vino.</p>
+            <p>Monitoriza la <strong>temperatura y densidad</strong> de tus depósitos en tiempo real. Recibe alertas y usa análisis predictivos antes de que un desvío afecte a la calidad del vino.</p>
           </div>
         </div>
 
@@ -442,7 +451,7 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
             </div>
             <h3>Gestión de barricas</h3>
-            <p>Localiza cada lote al instante. Controla la temperatura y humedad en las salas de crianza para <strong>minimizar mermas</strong> y asegurar una evolución óptima.</p>
+            <p>Localiza cada lote al instante. Controla parámetros clave en las salas de crianza para <strong>minimizar mermas</strong>, asegurar una evolución óptima y predecir ciclos.</p>
           </div>
         </div>
 
@@ -452,14 +461,14 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
             </div>
             <h3>Trazabilidad y registros</h3>
-            <p>Automatiza la toma de datos para <strong>inspecciones y auditorías</strong>. Accede a la historia completa de cada lote, desde la entrada de uva hasta el embotellado, con un clic.</p>
+            <p>Automatiza la toma de datos para <strong>inspecciones y auditorías</strong>. Accede a la historia digital completa de cada lote, desde la entrada de uva hasta el embotellado.</p>
           </div>
         </div>
 
       </div>
     </section>
 
-    <section class="steps container">
+    <section id="metodologia" class="steps container">
       <div class="section-title reveal">
         <h2>Nuestro enfoque: la prueba piloto</h2>
         <p>No necesitas cambiar todo tu sistema de golpe. Validamos el valor de la tecnología paso a paso.</p>
@@ -477,8 +486,8 @@
         <div class="glow-effect reveal" style="transition-delay: 0.1s;">
           <div class="glow-content" style="padding: 30px;">
             <div class="step-number">02</div>
-            <h3>Instalamos sin obras</h3>
-            <p>Desplegamos los <strong>sensores estrictamente necesarios</strong> en una zona acotada (por ejemplo, tres depósitos o una nave) sin interrumpir vuestra rutina.</p>
+            <h3>Despliegue ágil y acotado</h3>
+            <p>Implementamos las <strong>herramientas estrictamente necesarias</strong> —ya sea sensórica física, software de digitalización o modelos predictivos— en un área concreta, sin frenar vuestra producción.</p>
           </div>
         </div>
 
@@ -503,16 +512,13 @@
         <p style="margin-top: 24px; font-size: 0.95rem; margin-bottom: 0;">
           O si prefieres ir directo al grano, completa nuestro <a href="https://docs.google.com/forms/d/1eeSo2wSq8_sPrC9ix6kzqB3oblfbHBvdlZedFHgWxq4/viewform" target="_blank" class="link-light">breve cuestionario aquí</a>.
         </p>
-        <p style="margin-top: 10px; font-size: 0.85rem; opacity: 0.6;">
-          También atendemos consultas directas vía <strong>WhatsApp</strong> al organizar la primera llamada.
-        </p>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="container reveal">
-      <p style="margin-bottom: 8px;"><strong>Sentia</strong> &middot; Tecnología Práctica para Bodegas</p>
+      <p style="margin-bottom: 8px;"><strong>Sentia</strong> &middot; Tecnología Inteligente para Bodegas</p>
       <p>Desarrollado en Pamplona y Logroño | sentia.enterprise@gmail.com</p>
       
       <div class="footer-links">

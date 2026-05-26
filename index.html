@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Sentia: Tecnología práctica para el control de bodegas en Navarra, La Rioja y País Vasco. Digitalización, IA, sensorización y trazabilidad." />
   <title>Sentia | Tecnología Inteligente para Bodegas</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%239C2744'/%3E%3Cpath d='M16 45c12-5 21-16 32-30 3 19-6 33-25 37-5 1-8-2-7-7Z' fill='%23F3E5AB'/%3E%3Cpath d='M19 43c8-4 16-10 24-21' stroke='%23D4AF37' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
   
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap');
@@ -370,10 +371,112 @@
       opacity: 0.8;
     }
 
-    .footer-links a:hover {
+    .footer-links button {
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .footer-links button:hover {
       color: var(--white);
       text-decoration: underline;
     }
+
+    /* ESTILOS DEL MODAL (Pop-up Legal) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: #1A1A24;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 700px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 24px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: var(--gold-accent);
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal:hover {
+      color: var(--white);
+    }
+
+    .modal-body {
+      padding: 32px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    
+    .modal-body h3 {
+      color: var(--white);
+      margin: 24px 0 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+    }
+
+    .modal-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .modal-body p {
+      margin-bottom: 16px;
+    }
+
+    /* Ocultar secciones del modal por defecto */
+    .legal-section { display: none; }
+    .legal-section.active { display: block; }
 
     /* MICRO-ANIMACIONES DE ENTRADA */
     .reveal {
@@ -518,16 +621,55 @@
 
   <footer>
     <div class="container reveal">
-      <p style="margin-bottom: 8px;"><strong>Sentia</strong> &middot; Tecnología inteligente para bodegas</p>
+      <p style="margin-bottom: 8px;"><strong>Sentia</strong> &middot; Tecnología Inteligente para Bodegas</p>
       <p>sentia.enterprise@gmail.com</p>
       
+      <!-- ENLACES QUE ABREN EL MODAL -->
       <div class="footer-links">
-        <a href="#">Aviso Legal</a>
-        <a href="#">Política de Privacidad</a>
-        <a href="#">Política de Cookies</a>
+        <button onclick="openModal('aviso')">Aviso Legal</button>
+        <button onclick="openModal('privacidad')">Política de Privacidad</button>
+        <button onclick="openModal('cookies')">Política de Cookies</button>
       </div>
     </div>
   </footer>
+
+  <!-- MODAL LEGAL (Textos simplificados y seguros al 100%) -->
+  <div class="modal-overlay" id="legalModal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h2 id="modalTitle">Información Legal</h2>
+        <button class="close-modal" onclick="closeModal(event)">×</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Contenido Aviso Legal -->
+        <div id="content-aviso" class="legal-section">
+          <h3>1. Propósito del sitio web</h3>
+          <p>Este sitio web pertenece al equipo detrás del proyecto <strong>Sentia</strong>. Actualmente somos una iniciativa tecnológica en fase de desarrollo validando nuestra propuesta de valor en el sector vitivinícola.</p>
+          <p>El propósito de esta página es puramente informativo y de contacto profesional. A través de ella no se realizan transacciones comerciales ni cobros.</p>
+          <h3>2. Contacto directo</h3>
+          <p>Para cualquier duda, sugerencia o comunicación con nuestro equipo, puedes escribirnos directamente a nuestro correo: <strong>sentia.enterprise@gmail.com</strong>.</p>
+        </div>
+
+        <!-- Contenido Política de Privacidad -->
+        <div id="content-privacidad" class="legal-section">
+          <h3>1. Qué hacemos con tu información</h3>
+          <p>Nuestra política es simple y transparente. Si decides escribirnos un correo electrónico o rellenar nuestro formulario de contacto, utilizaremos tu dirección y los datos que nos facilites <strong>única y exclusivamente para responder a tu consulta</strong> y mantener una conversación profesional.</p>
+          <p><strong>No vendemos, no alquilamos y no cedemos tus datos a nadie.</strong></p>
+          <h3>2. Tus derechos</h3>
+          <p>Si en algún momento deseas que dejemos de escribirte o quieres que eliminemos tu correo electrónico de nuestros registros de contacto, solo tienes que pedírnoslo escribiendo a: <strong>sentia.enterprise@gmail.com</strong>.</p>
+        </div>
+
+        <!-- Contenido Política de Cookies -->
+        <div id="content-cookies" class="legal-section">
+          <h3>Cero rastreo publicitario</h3>
+          <p>Nos importa tu privacidad. <strong>Esta página web NO utiliza cookies analíticas, de rastreo, ni publicitarias.</strong> No recopilamos información sobre cómo navegas ni se la enviamos a terceros.</p>
+          <p>Únicamente empleamos los recursos técnicos y estrictamente indispensables proporcionados por la plataforma de alojamiento (GitHub Pages) para que el sitio web sea seguro y se visualice correctamente en tu dispositivo.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <script>
     // 1. BARRA DE PROGRESO DE LECTURA
@@ -570,6 +712,31 @@
         revealOnScroll.observe(reveal);
       });
     });
+
+    // 4. CONTROL DEL MODAL LEGAL
+    const modalOverlay = document.getElementById('legalModal');
+    const sections = document.querySelectorAll('.legal-section');
+    const modalTitle = document.getElementById('modalTitle');
+
+    const titles = {
+      'aviso': 'Aviso Legal',
+      'privacidad': 'Política de Privacidad',
+      'cookies': 'Política de Cookies'
+    };
+
+    function openModal(type) {
+      sections.forEach(sec => sec.classList.remove('active'));
+      document.getElementById('content-' + type).classList.add('active');
+      modalTitle.textContent = titles[type];
+      modalOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(e) {
+      if (e) e.preventDefault();
+      modalOverlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
   </script>
 
 </body>

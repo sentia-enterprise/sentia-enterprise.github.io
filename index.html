@@ -83,7 +83,7 @@
 
     h1, h2, h3, .brand {
       font-family: 'Playfair Display', serif;
-      color: var(--white);
+      color: var(--text-main);
     }
 
     a { text-decoration: none; color: inherit; }
@@ -157,15 +157,15 @@
 
     .btn-outline {
       background-color: rgba(255, 255, 255, 0.1);
-      color: var(--white);
+      color: var(--text-main);
       border: 1px solid rgba(255, 255, 255, 0.4);
       backdrop-filter: blur(10px);
     }
 
     .btn-outline:hover {
-      background-color: var(--white);
+      background-color: var(--text-main);
       color: #111;
-      border-color: var(--white);
+      border-color: var(--text-main);
       transform: translateY(-2px);
     }
 
@@ -185,7 +185,7 @@
 
     .hero p {
       font-size: 1.15rem;
-      color: var(--white);
+      color: var(--text-main);
       max-width: 680px;
       margin: 0 auto 40px;
       font-weight: 400;
@@ -212,12 +212,18 @@
     }
 
     .section-title p {
-      color: var(--white);
+      color: var(--text-main);
       font-size: 1.1rem;
       text-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
-    .grid, .step-list {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 32px;
+    }
+    
+    .step-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 32px;
@@ -266,17 +272,50 @@
       height: 100%;
     }
 
+    /* MEJORAS VISUALES EN LAS TARJETAS (BADGES E ICONOS) */
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
     .card-icon {
       width: 52px;
       height: 52px;
       color: var(--gold-accent);
-      margin-bottom: 24px;
       background: rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid rgba(212, 175, 55, 0.2);
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15); /* Sombra añadida para dar volumen */
+      transition: var(--transition);
+    }
+
+    .glow-effect:hover .card-icon {
+      transform: scale(1.05);
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold-accent);
+      background: rgba(212, 175, 55, 0.08);
+      padding: 6px 12px;
+      border-radius: 50px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      transition: var(--transition);
+    }
+
+    .glow-effect:hover .badge {
+      background: rgba(212, 175, 55, 0.18);
     }
 
     .glow-effect h3 {
@@ -289,6 +328,43 @@
       font-size: 0.95rem;
       line-height: 1.6;
       margin: 0;
+    }
+
+    /* ESTILOS DE LA TARJETA "DESARROLLO A MEDIDA" */
+    .custom-solution-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .custom-card {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .custom-card .glow-content {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      gap: 32px;
+      padding: 32px 48px;
+    }
+
+    .custom-card .card-icon {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+    }
+
+    .custom-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    /* Textos justificados para la tarjeta de otros */
+    .custom-card p {
+      text-align: justify;
+      hyphens: auto;
     }
 
     .step-number {
@@ -332,7 +408,7 @@
 
     .contact-box p {
       margin-bottom: 40px;
-      color: var(--white);
+      color: var(--text-main);
       font-size: 1.1rem;
       max-width: 500px;
       margin-left: auto;
@@ -381,7 +457,7 @@
     }
 
     .footer-links button:hover {
-      color: var(--white);
+      color: var(--text-main);
       text-decoration: underline;
     }
 
@@ -448,7 +524,7 @@
     }
 
     .close-modal:hover {
-      color: var(--white);
+      color: var(--text-main);
     }
 
     .modal-body {
@@ -460,7 +536,7 @@
     }
     
     .modal-body h3 {
-      color: var(--white);
+      color: var(--text-main);
       margin: 24px 0 12px;
       font-family: 'Inter', sans-serif;
       font-size: 1.1rem;
@@ -494,6 +570,17 @@
       .hero { padding: 100px 0 80px; }
       .contact-box { padding: 40px 24px; }
       .section-title h2 { font-size: 2.2rem; }
+      .grid { grid-template-columns: 1fr; }
+      
+      .custom-card .glow-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+        padding: 32px;
+      }
+      .custom-card p {
+        text-align: left; /* En móvil suele leerse mejor alineado a la izquierda */
+      }
     }
   </style>
 </head>
@@ -531,46 +618,93 @@
       </div>
     </section>
 
+    <!-- SECCIÓN DE SOLUCIONES (4 PRODUCTOS + 1 A MEDIDA) -->
     <section id="soluciones" class="features container">
       <div class="section-title reveal">
-        <h2>Dónde podemos ayudarte</h2>
-        <p>La tecnología se adapta a tus necesidades. Estas son <strong>algunas de las soluciones principales</strong> que diseñamos para facilitar el día a día en producción:</p>
+        <h2>Nuestras Soluciones</h2>
+        <p>La tecnología se adapta a tus necesidades. Estas son <strong>las cuatro soluciones tecnológicas principales</strong> que diseñamos para facilitar el día a día en producción y logística:</p>
       </div>
+      
+      <!-- CUADRÍCULA 2x2 DE PRODUCTOS CON MEJORAS VISUALES -->
       <div class="grid">
         
+        <!-- Solución 1: Fermentwatch -->
         <div class="glow-effect reveal">
           <div class="glow-content">
-            <div class="card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+              </div>
+              <span class="badge">IoT & Control</span>
             </div>
-            <h3>Control de fermentación</h3>
-            <p>Monitoriza la <strong>temperatura y densidad</strong> de tus depósitos en tiempo real. Recibe alertas y usa análisis predictivos antes de que un desvío afecte a la calidad del vino.</p>
+            <h3>Fermentwatch</h3>
+            <p><strong>Que no se te escape la fermentación:</strong> detecta, decide y deja todo registrado. Control continuo de la fermentación para detectar problemas antes y reaccionar a tiempo.</p>
           </div>
         </div>
 
+        <!-- Solución 2: SkyVine -->
         <div class="glow-effect reveal" style="transition-delay: 0.1s;">
           <div class="glow-content">
-            <div class="card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><circle cx="12" cy="12" r="4"></circle><path d="M6.34 6.34l1.42 1.42"></path><path d="M16.24 16.24l1.42 1.42"></path><path d="M6.34 17.66l1.42-1.42"></path><path d="M16.24 7.76l1.42-1.42"></path></svg>
+              </div>
+              <span class="badge">IA & Drones</span>
             </div>
-            <h3>Gestión de barricas</h3>
-            <p>Localiza cada lote al instante. Controla parámetros clave en las salas de crianza para <strong>minimizar mermas</strong>, asegurar una evolución óptima y predecir ciclos.</p>
+            <h3>SkyVine</h3>
+            <p><strong>La inteligencia aérea del viñedo.</strong> Detección y captura automática de datos con drones sobre campo y bodega: enfermedades, maduración, situación de plantas y estado de barriles.</p>
           </div>
         </div>
 
+        <!-- Solución 3: BarrelIq -->
         <div class="glow-effect reveal" style="transition-delay: 0.2s;">
           <div class="glow-content">
-            <div class="card-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
+              </div>
+              <span class="badge">Trazabilidad</span>
             </div>
-            <h3>Trazabilidad y registros</h3>
-            <p>Automatiza la toma de datos para <strong>inspecciones y auditorías</strong>. Accede a la historia digital completa de cada lote, desde la entrada de uva hasta el embotellado.</p>
+            <h3>BarrelIq</h3>
+            <p><strong>Convierte cada barrica en un dato</strong> que trabaja para ti. Control y trazabilidad de barricas para saber dónde están y evitar errores operativos.</p>
+          </div>
+        </div>
+
+        <!-- Solución 4: LabelTrace -->
+        <div class="glow-effect reveal" style="transition-delay: 0.3s;">
+          <div class="glow-content">
+            <div class="card-header">
+              <div class="card-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              </div>
+              <span class="badge">Logística</span>
+            </div>
+            <h3>LabelTrace</h3>
+            <p><strong>Que cada caja llegue donde toca…</strong> y no donde se cree. Trazabilidad de lote y expedición con validación de pedidos y registro de salida por unidad logística.</p>
           </div>
         </div>
 
       </div>
+
+      <!-- TARJETA 5: DESARROLLO A MEDIDA (Centrada, ancha y justificada) -->
+      <div class="custom-solution-wrapper reveal" style="transition-delay: 0.4s;">
+        <div class="glow-effect custom-card">
+          <div class="glow-content">
+            <div class="card-icon">
+              <!-- Icono Capas / Ingeniería transversal -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </div>
+            <div>
+              <h3>¿Tienes otro reto? Desarrollo a medida</h3>
+              <p><strong>Nos adaptamos a vuestra realidad operativa.</strong> Si tenéis un cuello de botella en el viñedo, la bodega o la distribución, diseñamos la herramienta tecnológica exacta para resolverlo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
+    <!-- SECCIÓN DE METODOLOGÍA -->
     <section id="metodologia" class="steps container">
       <div class="section-title reveal">
         <h2>Nuestro enfoque: la prueba piloto</h2>
@@ -581,7 +715,7 @@
         <div class="glow-effect reveal">
           <div class="glow-content" style="padding: 30px;">
             <div class="step-number">01</div>
-            <h3>Nos tomamos un café</h3>
+            <h3>Nos tomamos un vino</h3>
             <p>Visitamos la bodega para conocer de primera mano dónde perdéis más tiempo o <strong>qué tareas generan mayor fricción</strong> en el día a día.</p>
           </div>
         </div>
@@ -605,9 +739,10 @@
       </div>
     </section>
 
+    <!-- SECCIÓN DE CONTACTO -->
     <section id="contacto" class="contact container">
       <div class="contact-box reveal">
-        <h2>¿Hablamos sobre tu bodega?</h2>
+        <h2>¿Hablamos?</h2>
         <p>Déjanos un medio de contacto y cuéntanos brevemente qué área te gustaría optimizar. Nos pondremos en contacto contigo rápidamente.</p>
         <a href="mailto:sentia.enterprise@gmail.com?subject=Información%20sobre%20Sentia%20Bodegas" class="btn">
           Contactar por correo
@@ -633,7 +768,7 @@
     </div>
   </footer>
 
-  <!-- MODAL LEGAL (Textos simplificados y seguros al 100%) -->
+  <!-- MODAL LEGAL -->
   <div class="modal-overlay" id="legalModal" onclick="closeModal(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
       <div class="modal-header">
@@ -642,7 +777,6 @@
       </div>
       <div class="modal-body">
         
-        <!-- Contenido Aviso Legal -->
         <div id="content-aviso" class="legal-section">
           <h3>1. Propósito del sitio web</h3>
           <p>Este sitio web pertenece al equipo detrás del proyecto <strong>Sentia</strong>. Actualmente somos una iniciativa tecnológica en fase de desarrollo validando nuestra propuesta de valor en el sector vitivinícola.</p>
@@ -651,7 +785,6 @@
           <p>Para cualquier duda, sugerencia o comunicación con nuestro equipo, puedes escribirnos directamente a nuestro correo: <strong>sentia.enterprise@gmail.com</strong>.</p>
         </div>
 
-        <!-- Contenido Política de Privacidad -->
         <div id="content-privacidad" class="legal-section">
           <h3>1. Qué hacemos con tu información</h3>
           <p>Nuestra política es simple y transparente. Si decides escribirnos un correo electrónico o rellenar nuestro formulario de contacto, utilizaremos tu dirección y los datos que nos facilites <strong>única y exclusivamente para responder a tu consulta</strong> y mantener una conversación profesional.</p>
@@ -660,7 +793,6 @@
           <p>Si en algún momento deseas que dejemos de escribirte o quieres que eliminemos tu correo electrónico de nuestros registros de contacto, solo tienes que pedírnoslo escribiendo a: <strong>sentia.enterprise@gmail.com</strong>.</p>
         </div>
 
-        <!-- Contenido Política de Cookies -->
         <div id="content-cookies" class="legal-section">
           <h3>Cero rastreo publicitario</h3>
           <p>Nos importa tu privacidad. <strong>Esta página web NO utiliza cookies analíticas, de rastreo, ni publicitarias.</strong> No recopilamos información sobre cómo navegas ni se la enviamos a terceros.</p>

@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="LabelTrace — Trazabilidad de lote y expedicion para bodegas. Validacion digital de pedidos antes de la salida con registro automatico y alertas en tiempo real." />
+  <link rel="canonical" href="https://sentia-enterprise.github.io/labeltrace.html" />
+  <title>LabelTrace | Trazabilidad de lote y expedicion — Sentia WineOps</title>
+  <meta name="theme-color" content="#6b1f32" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sentia-enterprise.github.io/labeltrace.html" />
+  <meta property="og:title" content="LabelTrace | Trazabilidad de lote y expedicion — Sentia WineOps" />
+  <meta property="og:description" content="Controla la expedicion de tu bodega: validacion automatica de pedidos, trazabilidad por lote y registro digital de cada salida. Piloto de 90 dias sin riesgo." />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LabelTrace | Trazabilidad de lote y expedicion — Sentia WineOps" />
+  <meta name="twitter:description" content="Validacion digital de pedidos antes de la salida. Piloto de 90 dias acotado a un tipo de pedido o cliente." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236b1f32'/%3E%3Cpath d='M16 45c12-5 21-16 32-30 3 19-6 33-25 37-5 1-8-2-7-7Z' fill='%23f4e6c8'/%3E%3Cpath d='M19 43c8-4 16-10 24-21' stroke='%232d6a4f' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"LabelTrace","applicationCategory":"BusinessApplication","url":"https://sentia-enterprise.github.io/labeltrace.html","description":"Trazabilidad de lote y expedicion para bodegas. Validacion digital de pedidos antes de la salida.","operatingSystem":"Web, Android","offers":{"@type":"Offer","price":"150","priceCurrency":"EUR","description":"Cuota mensual durante el piloto"}}</script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,650;9..144,760&family=Manrope:wght@400;520;650;760;850&display=swap');
+
+    :root {
+      color-scheme: light;
+      --wine-900: #351016;
+      --wine-800: #4d1724;
+      --wine-700: #6b1f32;
+      --wine-600: #912b42;
+      --leaf-800: #173f31;
+      --leaf-700: #235844;
+      --leaf-600: #2d6a4f;
+      --olive: #6f7f3a;
+      --clay: #a35f36;
+      --gold: #d8b96d;
+      --sand-50: #fffaf0;
+      --sand-100: #f7edda;
+      --sand-200: #ead8b7;
+      --paper: rgba(255, 253, 247, 0.9);
+      --paper-solid: #fffdf7;
+      --ink: #1f1714;
+      --muted: #69594f;
+      --line: rgba(107, 31, 50, 0.16);
+      --focus: #0f766e;
+      --shadow-soft: 0 20px 60px rgba(53, 16, 22, 0.12);
+      --shadow-strong: 0 34px 90px rgba(53, 16, 22, 0.22);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { max-width: 100%; overflow-x: hidden; }
+    body {
+      margin: 0;
+      padding-bottom: 72px;
+      color: var(--ink);
+      font-family: Manrope, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.58;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(216, 185, 109, 0.24), transparent 24rem),
+        radial-gradient(circle at 88% 12%, rgba(45, 106, 79, 0.18), transparent 27rem),
+        linear-gradient(180deg, #fffaf0 0%, #f1e2c4 42%, #fffdf7 100%);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: 0.28;
+      background-image:
+        linear-gradient(115deg, transparent 0 49%, rgba(107, 31, 50, 0.055) 49% 50%, transparent 50%),
+        repeating-linear-gradient(102deg, rgba(35, 88, 68, 0.11) 0 1px, transparent 1px 46px);
+      background-size: 180px 180px, 100% 100%;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: auto 0 0;
+      z-index: -1;
+      height: 36vh;
+      pointer-events: none;
+      background:
+        linear-gradient(165deg, transparent 0 38%, rgba(35, 88, 68, 0.15) 38% 54%, transparent 54%),
+        linear-gradient(8deg, rgba(163, 95, 54, 0.19), rgba(216, 185, 109, 0.08));
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid rgba(15, 118, 110, 0.35); outline-offset: 4px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, .brand-text, .display { font-family: Fraunces, Georgia, serif; }
+    h1 { margin: 22px 0 20px; color: var(--wine-800); font-size: clamp(3.15rem, 7.3vw, 7.25rem); line-height: 0.88; letter-spacing: -0.075em; text-wrap: balance; }
+    h2 { margin-bottom: 12px; color: var(--wine-800); font-size: clamp(2.05rem, 4.4vw, 4rem); line-height: 0.98; letter-spacing: -0.055em; text-wrap: balance; }
+    h3 { color: var(--leaf-700); line-height: 1.12; letter-spacing: -0.025em; }
+    p { color: var(--muted); }
+    .wrap { width: min(var(--max), calc(100% - 42px)); margin: 0 auto; }
+    .skip-link { position: absolute; left: -999px; top: 14px; z-index: 30; border-radius: 999px; padding: 10px 14px; background: var(--wine-900); color: #fffaf0; font-weight: 850; }
+    .skip-link:focus { left: 14px; }
+    .progress { position: fixed; top: 0; left: 0; z-index: 40; width: 100%; height: 4px; background: transparent; }
+    .progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, var(--wine-600), var(--leaf-600), var(--gold)); }
+
+    header { position: sticky; top: 10px; z-index: 20; margin-top: 10px; }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 10px;
+      border: 1px solid rgba(255, 253, 247, 0.45);
+      border-radius: 999px;
+      background: rgba(255, 253, 247, 0.76);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 18px 44px rgba(53, 16, 22, 0.10);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 11px; min-height: 44px; color: var(--wine-800); font-weight: 900; }
+    .brand-mark { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 16px; color: var(--sand-50); background: linear-gradient(135deg, var(--wine-700), var(--leaf-600)); box-shadow: 0 18px 36px rgba(107, 31, 50, 0.24); }
+    .brand-mark svg { width: 24px; height: 24px; }
+    .brand-text { font-size: 1.08rem; letter-spacing: -0.04em; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 50px; border: 0; border-radius: 999px; padding: 0 19px; color: #fffaf0; background: linear-gradient(135deg, var(--wine-700), var(--wine-600)); box-shadow: 0 18px 38px rgba(107, 31, 50, 0.23); font-weight: 900; cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease; }
+    .button:hover { transform: translateY(-1px); box-shadow: 0 24px 48px rgba(107, 31, 50, 0.28); }
+    .button.secondary { color: var(--leaf-700); background: rgba(255,253,247,.86); border: 1px solid var(--line); box-shadow: none; }
+    .button.secondary:hover { background: var(--sand-100); box-shadow: 0 12px 26px rgba(53,16,22,.10); }
+    .button.ghost { color: var(--wine-800); background: transparent; border: 1px solid rgba(107,31,50,.22); box-shadow: none; }
+
+    main { overflow: hidden; }
+    section { padding: 86px 0; }
+    .hero { padding: 92px 0 64px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr); gap: 52px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px; color: var(--wine-700); background: rgba(255,253,247,.72); font-size: .78rem; font-weight: 900; text-transform: uppercase; letter-spacing: .085em; }
+    .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--leaf-600); box-shadow: 0 0 0 5px rgba(45,106,79,.12); }
+    .lead { max-width: 760px; font-size: clamp(1.08rem, 2vw, 1.28rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+    .section-head { max-width: 850px; margin-bottom: 30px; }
+    .section-head p { max-width: 760px; font-size: 1.08rem; }
+
+    .cards, .pain-grid, .timeline-steps, .hardware-grid, .budget-grid, .kpi-grid, .kpi-secondary-grid, .go-nogo-grid, .integration-grid, .faq-list, .gantt-phases { display: grid; gap: 18px; }
+    .cards, .pain-grid { grid-template-columns: repeat(3, 1fr); }
+    .timeline-steps { grid-template-columns: repeat(4, 1fr); }
+    .hardware-grid { grid-template-columns: repeat(2, 1fr); }
+    .budget-grid { grid-template-columns: repeat(2, 1fr); }
+    .kpi-grid { grid-template-columns: repeat(4, 1fr); }
+    .kpi-secondary-grid { grid-template-columns: repeat(4, 1fr); }
+    .go-nogo-grid { grid-template-columns: repeat(3, 1fr); }
+    .integration-grid { grid-template-columns: repeat(4, 1fr); }
+
+    .card, .pain-card, .timeline-card, .hardware-card, .kpi-card, .go-card, .integration-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      background: rgba(255,253,247,.86);
+      box-shadow: 0 15px 38px rgba(53,16,22,.07);
+    }
+    .card p, .pain-card p, .timeline-card p, .hardware-card p, .kpi-card p, .go-card p, .integration-card p { margin-bottom: 0; }
+    .icon { display: grid; place-items: center; width: 45px; height: 45px; margin-bottom: 16px; border: 1px solid var(--line); border-radius: 16px; color: var(--wine-700); background: var(--sand-100); }
+    .icon svg { width: 23px; height: 23px; }
+    .tag { display: inline-flex; margin-bottom: 16px; border-radius: 999px; padding: 6px 9px; color: #fffaf0; background: var(--leaf-700); font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .07em; }
+    .tag.alt { background: var(--wine-700); }
+    .tag.soft { color: var(--wine-800); background: var(--sand-100); border: 1px solid var(--line); }
+
+    .pilot-card { position: relative; overflow: hidden; border: 1px solid rgba(107,31,50,.18); border-radius: var(--radius-xl); background: var(--paper); box-shadow: var(--shadow-strong); }
+    .pilot-card::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 80% 0%, rgba(216,185,109,.36), transparent 16rem); }
+    .vine-map { height: 190px; background:
+      radial-gradient(circle at 78% 24%, rgba(255,253,247,.86) 0 34px, transparent 35px),
+      linear-gradient(166deg, transparent 0 36%, rgba(35,88,68,.84) 36% 47%, transparent 47%),
+      repeating-linear-gradient(12deg, rgba(53,16,22,.18) 0 2px, transparent 2px 24px),
+      linear-gradient(13deg, #88512e 0%, #d8b96d 44%, #f6e6c8 100%); }
+    .signal-panel { position: relative; margin: -42px 18px 18px; border: 1px solid var(--line); border-radius: 26px; padding: 20px; background: var(--paper-solid); box-shadow: 0 18px 45px rgba(53,16,22,.11); }
+    .panel-head { display: flex; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+    .panel-title strong { display: block; color: var(--wine-800); font-size: 1.05rem; }
+    .panel-title span { color: var(--muted); font-size: .9rem; }
+    .status { align-self: flex-start; border-radius: 999px; padding: 7px 10px; color: var(--leaf-700); background: #e6f2dd; font-size: .76rem; font-weight: 900; white-space: nowrap; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 17px; }
+    .metric { border: 1px solid var(--line); border-radius: 18px; padding: 13px; background: #fff9eb; }
+    .metric strong { display: block; color: var(--wine-700); font-size: 1.35rem; line-height: 1; letter-spacing: -.04em; }
+    .timeline-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .timeline-list li { display: grid; grid-template-columns: 78px 1fr; gap: 13px; border: 1px solid var(--line); border-radius: 18px; padding: 13px; background: #fffdf7; }
+    .timeline-list time { color: var(--leaf-700); font-size: .82rem; font-weight: 900; }
+    .timeline-list strong { display: block; color: var(--ink); }
+
+    .flow-steps { display: grid; gap: 14px; counter-reset: flow; }
+    .flow-step { display: grid; grid-template-columns: 58px 1fr; gap: 14px; border: 1px solid var(--line); border-radius: 22px; padding: 18px; background: var(--paper-solid); }
+    .flow-number { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 16px; color: #fffaf0; background: linear-gradient(135deg, var(--leaf-700), var(--olive)); font-weight: 900; }
+    .flow-step h3 { margin-bottom: 4px; color: var(--wine-800); }
+    .flow-step p { margin-bottom: 0; }
+
+    .quote-block { margin: 28px 0; padding: 22px 26px; border-left: 5px solid var(--leaf-600); border-radius: 0 18px 18px 0; background: rgba(244,232,206,.74); }
+    .quote-block p { color: var(--wine-800); font-style: italic; font-size: 1.08rem; margin-bottom: 0; }
+
+    table { width: 100%; border-collapse: collapse; }
+    .budget-table { margin-top: 14px; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--paper-solid); box-shadow: 0 12px 32px rgba(53,16,22,.07); }
+    .budget-table th { padding: 14px 18px; color: var(--wine-800); background: rgba(244,232,206,.74); font-weight: 900; text-align: left; font-size: .92rem; }
+    .budget-table td { padding: 12px 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: .94rem; }
+    .budget-table .total-row td { color: var(--wine-800); font-weight: 900; background: rgba(255,253,247,.9); }
+    .budget-table .label { color: var(--ink); font-weight: 650; }
+
+    .summary-box { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px; background: var(--paper-solid); }
+    .summary-box p { margin-bottom: 0; }
+    .summary-box strong { color: var(--wine-800); }
+
+    .cta-panel { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; border-radius: var(--radius-xl); padding: 32px; color: #fff8e8; background: radial-gradient(circle at 90% 0%, rgba(216,185,109,.28), transparent 16rem), linear-gradient(135deg, var(--leaf-800), var(--wine-800)); box-shadow: var(--shadow-strong); }
+    .cta-panel h2, .cta-panel p { color: #fff8e8; }
+    .sticky-cta { position: fixed; right: 18px; bottom: 18px; z-index: 25; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border-radius: 999px; padding: 0 16px; color: #fff8e8; background: var(--leaf-700); box-shadow: 0 18px 44px rgba(35,88,68,.28); font-weight: 900; }
+    .sticky-cta:hover { background: var(--leaf-800); }
+
+    details { border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; background: rgba(255,253,247,.9); box-shadow: 0 10px 26px rgba(53,16,22,.06); }
+    summary { color: var(--wine-800); cursor: pointer; font-weight: 900; }
+    details p { margin: 12px 0 0; }
+
+    .no-need { border: 1px solid rgba(45,106,79,.30); border-radius: var(--radius-lg); padding: 22px; background: #e6f2dd; }
+    .no-need h3 { color: var(--leaf-800); }
+    .no-need ul { margin: 0; padding-left: 20px; color: var(--leaf-700); }
+    .no-need li { margin-bottom: 6px; }
+
+    .evidence-strip { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .pill { display: inline-flex; align-items: center; min-height: 38px; border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; color: var(--muted); background: rgba(255,253,247,.78); font-size: .91rem; font-weight: 850; }
+    .pill strong { color: var(--wine-700); }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; min-height: 38px; border-radius: 999px; padding: 0 11px; color: var(--muted); background: rgba(255,253,247,.5); font-size: .9rem; font-weight: 850; transition: background 180ms ease, color 180ms ease; }
+    .back-link:hover { background: var(--sand-100); color: var(--wine-800); }
+    .back-link svg { width: 16px; height: 16px; }
+
+    footer { padding: 36px 0 52px; color: var(--muted); }
+    .footer-grid { display: flex; justify-content: space-between; gap: 18px; border-top: 1px solid var(--line); padding-top: 24px; font-size: .92rem; }
+    .footer-grid a { color: var(--leaf-700); font-weight: 850; text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 1080px) {
+      .hero-grid, .budget-grid { grid-template-columns: 1fr; }
+      .cards, .pain-grid, .hardware-grid, .kpi-grid, .kpi-secondary-grid, .go-nogo-grid, .integration-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline-steps { grid-template-columns: repeat(2, 1fr); }
+      .cta-panel { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      header { position: static; margin-top: 0; }
+      section { padding: 58px 0; }
+      .wrap { width: min(100% - 56px, var(--max)); }
+      body * { max-width: 100%; min-width: 0; }
+      .nav { flex-wrap: wrap; border-radius: 24px; }
+      .brand { width: 100%; }
+      .hero { padding: 48px 0 38px; }
+      h1 { max-width: 12.5ch; font-size: clamp(1.9rem, 9.8vw, 2.8rem); line-height: .98; letter-spacing: -.035em; overflow-wrap: normal; text-wrap: auto; }
+      h2 { font-size: clamp(2rem, 10vw, 3rem); }
+      .lead { max-width: 33ch; font-size: 1rem; }
+      .hero-actions { flex-direction: column; }
+      .button { width: min(100%, 304px); min-width: 0; }
+      .cards, .pain-grid, .hardware-grid, .kpi-grid, .kpi-secondary-grid, .go-nogo-grid, .integration-grid, .timeline-steps { grid-template-columns: 1fr; }
+      .flow-step, .timeline-list li { grid-template-columns: 1fr; }
+      .hero-grid > *, .pilot-card, .signal-panel, .cta-panel { width: 100%; }
+      .panel-head { flex-wrap: wrap; }
+      .signal-panel { margin-left: 10px; margin-right: 10px; }
+      .sticky-cta { left: 50%; right: auto; bottom: 14px; width: min(304px, calc(100vw - 56px)); white-space: normal; text-align: center; transform: translateX(-50%); }
+      .footer-grid { flex-direction: column; padding-bottom: 58px; }
+      table { font-size: .8rem; }
+      .budget-table th, .budget-table td { padding: 10px 12px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto; transition-duration: 0.01ms; animation-duration: 0.01ms; animation-iteration-count: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span></span></div>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header>
+    <div class="wrap">
+      <div class="nav" aria-label="Navegacion principal">
+        <a class="brand" href="index.html" aria-label="Sentia WineOps inicio">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Sentia vine signal mark</title><path d="M17.5 4.5c-5.8 1.3-9.6 5-9.6 8.2 0 2.1 1.8 3.4 4.2 3.4 2.2 0 4.1 1 4.1 2.9 0 1.5-1.2 2.5-3.2 2.5-2.2 0-4.2-1.1-5.4-2.7"/><path d="M8 13.2C7.2 8.8 9.6 5.4 14.9 3"/><path d="M15.5 5.2c1.2 2.2 1 4.3-.4 5.7-1.7-.9-2.6-2.7-2.3-4.9"/></svg></span>
+          <span class="brand-text">Sentia WineOps</span>
+        </a>
+        <a class="back-link" href="index.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+          Volver al inicio
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero" id="top">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Solucion Sentia · Expedicion</span>
+          <h1>LabelTrace</h1>
+          <p class="lead">Trazabilidad de lote y expedicion para bodegas. Un punto de validacion digital antes de que el pedido salga por la puerta: cada caja se identifica, se valida contra el pedido real y se registra automaticamente.</p>
+          <div class="hero-actions">
+            <a class="button" href="#contacto">Hablar con Sentia</a>
+            <a class="button secondary" href="#presupuesto">Ver presupuesto</a>
+          </div>
+          <div class="evidence-strip" aria-label="Datos clave del piloto">
+            <span class="pill"><strong>90</strong>&nbsp;dias de piloto</span>
+            <span class="pill"><strong>1</strong>&nbsp;punto de validacion</span>
+            <span class="pill"><strong>1.800-2.850 €</strong>&nbsp;inversion total</span>
+            <span class="pill"><strong>0</strong>&nbsp;riesgo al cerrar</span>
+          </div>
+        </div>
+
+        <aside class="pilot-card" aria-label="Vista ejemplo del punto de validacion LabelTrace">
+          <div class="vine-map" aria-hidden="true"></div>
+          <div class="signal-panel">
+            <div class="panel-head">
+              <div class="panel-title"><strong>LabelTrace · Punto de validacion</strong><span>Ejemplo visual · datos de muestra</span></div>
+              <span class="status">Operativo</span>
+            </div>
+            <div class="metric-grid">
+              <div class="metric"><strong>247</strong><span>cajas validadas hoy</span></div>
+              <div class="metric"><strong>3</strong><span>alertas detectadas</span></div>
+              <div class="metric"><strong>18s</strong><span>por validacion</span></div>
+            </div>
+            <ol class="timeline-list">
+              <li><time>10:42</time><span><strong>Pedido #1427</strong><span>12 cajas · Lote B24-03 · Cliente Rioja Alta · OK</span></span></li>
+              <li><time>10:18</time><span><strong>Pedido #1426</strong><span>8 cajas · Lote B24-01 · Cliente Vinos del Norte · OK</span></span></li>
+              <li><time>09:55</time><span><strong>Alerta</strong><span>Referencia incorrecta en caja 3/6 · Corregido antes de salida</span></span></li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 1. El Dolor -->
+    <section id="dolor">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Seccion 1</span>
+          <h2>El problema no esta en producir. Esta en expedir sin errores.</h2>
+          <p>En la fase de etiquetado, preparacion de pedidos y expedicion se producen errores que tienen consecuencias reales: devoluciones, reclamaciones de lote, horas perdidas reconstruyendo trazabilidad.</p>
+        </div>
+        <div class="pain-grid">
+          <article class="pain-card"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Error de envio</title><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg></div><h3>Cajas que llegan al cliente equivocado</h3><p>Una referencia mal colocada en el muelle de carga se convierte en una devolucion y en una llamada incomoda.</p></article>
+          <article class="pain-card"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Lote mal asociado</title><path d="M4 7h16"/><path d="M6 7v13h12V7"/><path d="M9 7V4h6v3"/><circle cx="12" cy="13" r="3"/></svg></div><h3>Lotes mal asociados a pedidos</h3><p>Cuando un distribuidor reclama un lote concreto, reconstruir que salio, cuando y a que cliente puede llevar horas.</p></article>
+          <article class="pain-card"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><title>Registros dispersos</title><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6"/></svg></div><h3>Registros incompletos o dispersos</h3><p>La informacion de expedicion vive en papeles de muelle, notas manuscritas, hojas de calculo o en la memoria del equipo.</p></article>
+        </div>
+        <div class="quote-block">
+          <p>"Si hoy un cliente os llama porque una caja llego con la referencia equivocada o con un lote que no esperaba, ¿cuanto tardais en saber exactamente que paso y en que punto del proceso ocurrio?"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. La Solucion -->
+    <section id="solucion">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Seccion 2</span>
+          <h2>Un punto de control antes de que el pedido salga por la puerta.</h2>
+          <p>LabelTrace digitaliza el proceso de expedicion para que cada unidad logistica salga correctamente identificada, validada y registrada. No se trata de cambiar todo el sistema logistico de la bodega, sino de añadir una capa de control donde mas errores se producen.</p>
+        </div>
+        <div class="flow-steps">
+          <article class="flow-step"><span class="flow-number">1</span><div><h3>Identificacion</h3><p>Cada caja, lote o agrupacion se identifica antes de la expedicion mediante escaneo de codigo de barras o QR.</p></div></article>
+          <article class="flow-step"><span class="flow-number">2</span><div><h3>Validacion automatica</h3><p>El sistema compara contra el pedido real: referencias, cantidades, lotes y destino. Sin intervencion manual.</p></div></article>
+          <article class="flow-step"><span class="flow-number">3</span><div><h3>Registro de salida</h3><p>Fecha, responsable, pedido, cliente y lote asociado quedan registrados automaticamente en cada expedicion.</p></div></article>
+          <article class="flow-step"><span class="flow-number">4</span><div><h3>Alerta inmediata</h3><p>Si hay una discordancia —referencia incorrecta, cantidad equivocada, lote no previsto— el sistema alerta antes de expedir.</p></div></article>
+          <article class="flow-step"><span class="flow-number">5</span><div><h3>Historico consultable</h3><p>Toda la trazabilidad queda disponible para auditorias, reclamaciones, controles internos y gestion de calidad.</p></div></article>
+        </div>
+        <div class="quote-block">
+          <p>"LabelTrace ayuda a que cada caja llegue donde debe llegar, con el lote correcto, el pedido validado y toda la salida registrada."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Alcance del PILOTO -->
+    <section id="piloto">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Seccion 3</span>
+          <h2>Alcance del piloto: 90 dias con riesgo cero.</h2>
+          <p>El piloto esta diseñado para que el riesgo percibido sea minimo. No se implanta en toda la bodega. Se acota a una zona, un tipo de pedido y unas reglas claras. La carga operativa estimada para el personal de expedicion es de menos de 2 horas semanales.</p>
+        </div>
+
+        <div class="timeline-steps">
+          <article class="timeline-card">
+            <span class="tag">Semanas 1-2</span>
+            <h3>Descubrimiento y definicion</h3>
+            <p>Reunion de encaje con el responsable de expedicion. Mapeo del flujo actual de preparacion de pedidos. Seleccion de un tipo de pedido o cliente como unidad de prueba. Definicion del dato a capturar y acuerdo de KPIs.</p>
+          </article>
+          <article class="timeline-card">
+            <span class="tag alt">Semanas 3-4</span>
+            <h3>Instalacion y configuracion</h3>
+            <p>Instalacion del punto de validacion en zona de expedicion. Configuracion de reglas: asociacion lote-pedido-cliente, umbrales de alerta. Prueba controlada con datos reales. Sesion de uso con el equipo (30-45 min).</p>
+          </article>
+          <article class="timeline-card">
+            <span class="tag">Semanas 5-10</span>
+            <h3>Operacion del piloto</h3>
+            <p>Validacion diaria de pedidos seleccionados durante 6 semanas operativas. Registro automatico de cada salida. Revision semanal de eventos: validaciones correctas, alertas e incidencias. Ajuste de reglas si el equipo lo solicita.</p>
+          </article>
+          <article class="timeline-card">
+            <span class="tag soft">Semanas 11-13</span>
+            <h3>Cierre y evidencia</h3>
+            <p>Revision intermedia en semana 11 con datos acumulados. Informe de cierre con todos los KPIs. Recomendacion go / no-go con datos, no con opiniones. Si es go: propuesta de extension. Si es no-go: cierre ordenado sin coste adicional.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Hardware y Software -->
+    <section id="hardware">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Seccion 4</span>
+          <h2>Hardware y software: lo minimo necesario.</h2>
+          <p>Todo el equipamiento cabe en una zona de expedicion estandar. No se necesita servidor propio, no se modifica el ERP actual y no se requiere cableado adicional.</p>
+        </div>
+
+        <div class="hardware-grid">
+          <div>
+            <h3>Hardware en bodega</h3>
+            <table class="budget-table">
+              <tr><th>Elemento</th><th>Cantidad piloto</th></tr>
+              <tr><td class="label">Tablet industrial o dispositivo movil</td><td>1</td></tr>
+              <tr><td class="label">Lector de codigos de barras / QR</td><td>1</td></tr>
+              <tr><td class="label">Punto de acceso WiFi adicional</td><td>0-1</td></tr>
+              <tr><td class="label">Soporte o brazo articulado</td><td>1</td></tr>
+            </table>
+          </div>
+          <div>
+            <h3>Software en la nube y dispositivos</h3>
+            <table class="budget-table">
+              <tr><th>Elemento</th><th>Descripcion</th></tr>
+              <tr><td class="label">Plataforma LabelTrace (SaaS)</td><td>Acceso web para configuracion, historico y alertas</td></tr>
+              <tr><td class="label">App de validacion</td><td>Interfaz para el operador de muelle (Android)</td></tr>
+              <tr><td class="label">Panel de control</td><td>Dashboard con KPIs del piloto</td></tr>
+              <tr><td class="label">Exportacion de datos</td><td>CSV o PDF para integrar con sistemas existentes</td></tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="no-need" style="margin-top: 24px;">
+          <h3>Que NO necesita la bodega</h3>
+          <ul>
+            <li>No necesita servidores propios.</li>
+            <li>No necesita modificar su ERP o sistema de gestion actual.</li>
+            <li>No necesita formar a todo el personal: solo a los operadores del punto de validacion (1-3 personas).</li>
+            <li>No necesita cableado de red adicional (funciona por WiFi).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Presupuesto -->
+    <section id="presupuesto">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Seccion 5</span>
+          <h2>Presupuesto dividido: CAPEX unico + OPEX mensual.</h2>
+          <p>El piloto tiene un coste transparente dividido en dos partidas: el pago unico de instalacion y hardware (CAPEX) y la cuota mensual de uso (OPEX). Al final del piloto, la bodega decide si continua sin compromiso previo.</p>
+        </div>
+
+        <div class="budget-grid">
+          <div>
+            <h3>CAPEX — Pago unico de setup y hardware</h3>
+            <table class="budget-table">
+              <tr><th>Concepto</th><th>Coste estimado (€)</th></tr>
+              <tr><td class="label">Tablet industrial</td><td>400 – 600</td></tr>
+              <tr><td class="label">Lector de codigos de barras / QR</td><td>100 – 200</td></tr>
+              <tr><td class="label">Soporte y accesorios de instalacion</td><td>50 – 100</td></tr>
+              <tr><td class="label">Configuracion inicial, instalacion in situ y sesion de uso</td><td>800 – 1.200</td></tr>
+              <tr class="total-row"><td>Total CAPEX estimado</td><td>1.350 – 2.100</td></tr>
+            </table>
+            <p style="margin-top: 14px; font-size: .9rem;">El CAPEX se factura una sola vez al inicio del piloto. Incluye todo el hardware necesario, la instalacion fisica, la configuracion del software y la formacion inicial al equipo.</p>
+          </div>
+          <div>
+            <h3>OPEX — Cuota mensual durante el piloto</h3>
+            <table class="budget-table">
+              <tr><th>Concepto</th><th>Coste mensual (€)</th></tr>
+              <tr><td class="label">Licencia SaaS LabelTrace (1 punto de validacion)</td><td>150 – 250</td></tr>
+              <tr><td class="label">Soporte tecnico y mantenimiento</td><td>Incluido</td></tr>
+              <tr><td class="label">Revision y ajuste de reglas de validacion</td><td>Incluido</td></tr>
+              <tr class="total-row"><td>Total OPEX estimado (mensual)</td><td>150 – 250</td></tr>
+            </table>
+            <p style="margin-top: 14px; font-size: .9rem;">El OPEX se factura mensualmente durante los 3 meses del piloto. Incluye el uso de la plataforma, el soporte tecnico, las actualizaciones y las revisiones periodicas.</p>
+          </div>
+        </div>
+
+        <div class="summary-box" style="margin-top: 28px;">
+          <h3>Resumen del piloto de 90 dias</h3>
+          <table class="budget-table">
+            <tr><th>Partida</th><th>Estimacion</th></tr>
+            <tr><td class="label">CAPEX (pago unico)</td><td>1.350 – 2.100 €</td></tr>
+            <tr><td class="label">OPEX (3 meses × 150–250 €)</td><td>450 – 750 €</td></tr>
+            <tr class="total-row"><td>Inversion total del piloto</td><td>1.800 – 2.850 €</td></tr>
+          </table>
+          <p style="margin-top: 14px; font-size: .9rem;">Estas cifras son orientativas para el piloto. El coste de un despliegue completo dependera del numero de puntos de validacion, referencias y volumen de expedicion. La decision de escalar solo se toma si el piloto genera evidencia suficiente.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. KPIs de Exito -->
+    <section id="kpis">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Seccion 6</span>
+          <h2>KPIs de exito: ¿como sabremos si ha funcionado?</h2>
+          <p>Los KPIs se acuerdan con la bodega antes de empezar. Sirven para responder una sola pregunta al final del piloto: <strong>¿ha merecido la pena?</strong></p>
+        </div>
+
+        <h3>KPI primarios (medicion objetiva)</h3>
+        <div class="kpi-grid">
+          <article class="kpi-card"><span class="tag">Primario</span><h3>Tasa de error en expedicion</h3><p>% de cajas o pedidos con incidencia sobre el total de salidas del alcance piloto. Meta: reduccion medible respecto a la linea base.</p></article>
+          <article class="kpi-card"><span class="tag">Primario</span><h3>Tasa de validacion correcta</h3><p>% de pedidos que pasan la validacion sin alerta. Meta: ≥ 95% al final del piloto.</p></article>
+          <article class="kpi-card"><span class="tag">Primario</span><h3>Alertas generadas</h3><p>Numero de alertas por discordancia detectadas antes de la salida. Meta: 100% de las discordancias detectadas antes de expedir.</p></article>
+          <article class="kpi-card"><span class="tag">Primario</span><h3>Tiempo de validacion</h3><p>Segundos desde el escaneo de la primera caja hasta la confirmacion de salida. Meta: inferior a 30 segundos por caja.</p></article>
+        </div>
+
+        <h3 style="margin-top: 36px;">KPI secundarios (percepcion y adopcion)</h3>
+        <div class="kpi-secondary-grid">
+          <article class="kpi-card"><span class="tag alt">Secundario</span><h3>Adopcion del equipo</h3><p>% de pedidos del alcance que pasan por el punto de validacion. Meta: ≥ 90% en la segunda mitad del piloto.</p></article>
+          <article class="kpi-card"><span class="tag alt">Secundario</span><h3>Tiempo de respuesta</h3><p>Minutos hasta localizar el registro de salida ante una incidencia. Meta: reduccion > 50%.</p></article>
+          <article class="kpi-card"><span class="tag alt">Secundario</span><h3>Satisfaccion del responsable</h3><p>Valoracion del responsable de expedicion (escala 1-5). Meta: ≥ 4 al cierre.</p></article>
+          <article class="kpi-card"><span class="tag alt">Secundario</span><h3>Carga operativa percibida</h3><p>Valoracion del equipo de muelle (escala 1-5). Meta: ≥ 3 (neutro o positivo).</p></article>
+        </div>
+
+        <h3 style="margin-top: 36px;">Criterios de decision go / no-go</h3>
+        <div class="go-nogo-grid">
+          <article class="go-card" style="border-color: rgba(45,106,79,.32);">
+            <span class="tag">GO</span>
+            <p>Al menos 3 de los 4 KPI primarios alcanzan la meta. Los KPI secundarios muestran adopcion suficiente. El responsable ve utilidad real.</p>
+          </article>
+          <article class="go-card" style="border-color: rgba(216,185,109,.55);">
+            <span class="tag soft">GO con ajustes</span>
+            <p>Los KPI primarios muestran tendencia positiva pero no alcanzan meta. Se acuerda extender el piloto otras 4-6 semanas con ajustes.</p>
+          </article>
+          <article class="go-card" style="border-color: rgba(145,43,66,.30);">
+            <span class="tag alt">NO-GO</span>
+            <p>Los KPI no muestran mejora, la adopcion es baja o el equipo considera que la solucion no encaja. Se cierra sin coste adicional.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Conexion con otras soluciones -->
+    <section id="integracion">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Ecosistema Sentia</span>
+          <h2>LabelTrace se conecta con el resto de soluciones.</h2>
+          <p>LabelTrace no es una solucion aislada. Forma parte de un ecosistema de modulos que cubren distintas fases del proceso productivo. El valor se multiplica cuando los modulos se conectan.</p>
+        </div>
+
+        <div class="integration-grid">
+          <article class="integration-card">
+            <span class="tag">Viñedo</span><strong>LabelTrace + SkyVine</strong>
+            <p style="margin-top: 8px;">Asocia cada lote expedido con la finca de origen. Util para vinos de pago, vinos de finca o denominaciones que exigen trazabilidad por origen.</p>
+          </article>
+          <article class="integration-card">
+            <span class="tag">Fermentacion</span><strong>LabelTrace + FermentWatch</strong>
+            <p style="margin-top: 8px;">Vincula la salida con el historial completo de fermentacion de cada deposito. Trazabilidad desde el deposito hasta la caja entregada.</p>
+          </article>
+          <article class="integration-card">
+            <span class="tag alt">Crianza</span><strong>LabelTrace + BarrelIQ</strong>
+            <p style="margin-top: 8px;">Trazabilidad completa desde la barrica de origen hasta el cliente final. Para bodegas de alta gama o con exportacion.</p>
+          </article>
+          <article class="integration-card">
+            <span class="tag soft">Expedicion</span><strong>Trazabilidad extremo a extremo</strong>
+            <p style="margin-top: 8px;">Desde el viñedo hasta el cliente: SkyVine → FermentWatch → BarrelIQ → LabelTrace. Todos los modulos disenados para conectarse sin cambiar de proveedor.</p>
+          </article>
+        </div>
+
+        <div class="quote-block">
+          <p>"Podeis empezar solo por la expedicion con LabelTrace. Pero si mas adelante quereis trazar el vino desde la finca o desde la barrica hasta la caja que sale por el muelle, los modulos estan diseñados para conectarse. No teneis que cambiar de proveedor ni integrar sistemas distintos."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Preguntas frecuentes.</h2>
+        </div>
+        <div class="faq-list">
+          <details><summary>¿Tenemos que cambiar nuestro sistema de gestion actual?</summary><p>No. LabelTrace funciona de forma independiente. No requiere integracion con vuestro ERP. Si en el futuro quereis conectar ambos sistemas, los datos se pueden exportar.</p></details>
+          <details><summary>¿Que pasa si el WiFi de la zona de expedicion es inestable?</summary><p>La app de validacion funciona en modo offline: almacena las validaciones localmente y las sincroniza cuando recupera la conexion. Si la cobertura es muy deficiente, se instala un punto de acceso adicional (incluido en el CAPEX si es necesario).</p></details>
+          <details><summary>¿Cuanto tiempo necesita el equipo de muelle para aprender a usarlo?</summary><p>Una sesion de 30-45 minutos. La interfaz esta diseñada para que el operador escanee, vea si hay alerta y confirme. No requiere conocimientos tecnicos.</p></details>
+          <details><summary>¿Que ocurre si el piloto no funciona?</summary><p>Se cierra sin coste adicional. Retiramos el hardware, entregamos los datos exportables y documentamos lo aprendido. No hay permanencia ni penalizacion.</p></details>
+          <details><summary>¿Y si funciona y queremos ampliarlo?</summary><p>Una vez cerrado el piloto con evidencia positiva, preparamos una propuesta de ampliacion con coste ajustado al nuevo alcance. No se cobra nada hasta que la bodega aprueba la siguiente fase.</p></details>
+          <details><summary>¿Los datos son nuestros?</summary><p>Si. Todos los datos generados durante el piloto son propiedad de la bodega. Al cierre del piloto se entregan en formato exportable (CSV o PDF).</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Siguiente paso y contacto -->
+    <section id="contacto">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Siguiente paso: una llamada de 20 minutos.</h2>
+          <p>Si esta propuesta tiene sentido para vuestra bodega, el siguiente paso es una llamada para validar tres cosas:</p>
+        </div>
+        <div class="flow-steps" style="margin-bottom: 28px;">
+          <article class="flow-step"><span class="flow-number">1</span><div><h3>El problema existe</h3><p>Confirmamos si el problema de trazabilidad en expedicion existe en vuestra operativa.</p></div></article>
+          <article class="flow-step"><span class="flow-number">2</span><div><h3>El alcance encaja</h3><p>Validamos si el alcance de piloto propuesto encaja con vuestro volumen y tipo de pedidos.</p></div></article>
+          <article class="flow-step"><span class="flow-number">3</span><div><h3>La persona adecuada</h3><p>Identificamos quien seria la persona adecuada para liderar la prueba por parte de la bodega.</p></div></article>
+        </div>
+
+        <div class="cta-panel">
+          <div>
+            <h2>Tras la llamada, en 48 horas teneis una propuesta cerrada.</h2>
+            <p>Con alcance, baseline, presupuesto exacto y calendario. Sin compromiso. Sin letra pequeña.</p>
+          </div>
+          <a class="button" href="mailto:sentia.enterprise@gmail.com?subject=LabelTrace%20-%20Propuesta%20piloto">Hablar con Sentia</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <a class="sticky-cta" href="mailto:sentia.enterprise@gmail.com?subject=LabelTrace%20-%20Propuesta%20piloto">Hablar con Sentia</a>
+
+  <footer>
+    <div class="wrap footer-grid">
+      <div>Sentia WineOps · LabelTrace · <span>Pilotos operativos para bodegas</span></div>
+      <div><span>Navarra · Rioja</span> · <a href="mailto:sentia.enterprise@gmail.com">sentia.enterprise@gmail.com</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const progress = document.querySelector('.progress span');
+    const updateProgress = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+      progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  </script>
+</body>
+</html>

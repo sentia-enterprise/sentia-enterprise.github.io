@@ -3,872 +3,396 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Sentia: Tecnología práctica para el control de bodegas en Navarra, La Rioja y País Vasco. Digitalización, IA, sensorización y trazabilidad." />
-  <title>Sentia | Tecnología Inteligente para Bodegas</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%239C2744'/%3E%3Cpath d='M16 45c12-5 21-16 32-30 3 19-6 33-25 37-5 1-8-2-7-7Z' fill='%23F3E5AB'/%3E%3Cpath d='M19 43c8-4 16-10 24-21' stroke='%23D4AF37' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <meta name="description" content="Sentia: Soluciones digitales, IA y automatización personalizadas para bodegas." />
+  <title>Sentia | Diagnóstico y Tecnología a Medida para Bodegas</title>
   
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap');
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+  <style>
+    /* VARIABLES GLOBALES */
     :root {
-      --primary-wine: #9C2744; 
-      --wine-light: #B83354;
-      --gold-accent: #D4AF37;
-      --gold-light: #F3E5AB;
-      --text-main: #F8F9FA;
-      --text-muted: #E2E8F0;
-      
-      --glass-bg: rgba(15, 5, 8, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
-      
-      --radius: 16px;
-      --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --primary: #B23A48; 
+      --primary-light: #C94656;
+      --bg-stone: #1C1617; 
+      --bg-surface: #281F21; 
+      --text-main: #F9FAFB; 
+      --text-muted: #9CA3AF; 
+      --border: #3F3234;
+      --white: #FFFFFF;
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease;
     }
 
+    /* RESETEOS Y TIPOGRAFÍA */
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background-color: var(--bg-stone); }
     
     body {
       font-family: 'Inter', sans-serif;
       color: var(--text-main);
-      background-color: #05050A;
-      line-height: 1.6;
+      background-color: var(--bg-stone);
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    strong {
-      color: #FFFFFF;
-      font-weight: 600;
-    }
-
-    /* BARRA DE PROGRESO DORADA */
-    .progress-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: transparent;
-      z-index: 9999;
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background: var(--gold-accent);
-      width: 0%;
-      transition: width 0.1s ease-out;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-    }
-
-    /* FONDO LUMINOSO ESTÁTICO */
-    .bg-fixed {
-      position: fixed;
-      inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=2000&auto=format&fit=crop');
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      z-index: -2;
-    }
-
-    /* CAPA DE OSCURECIMIENTO SUTIL */
-    .bg-overlay {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(60, 15, 25, 0.4) 0%, rgba(10, 5, 8, 0.6) 100%);
-      z-index: -1;
     }
 
     h1, h2, h3, .brand {
-      font-family: 'Playfair Display', serif;
-      color: var(--text-main);
-    }
-
-    a { text-decoration: none; color: inherit; }
-    
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* HEADER GLASSMORPHISM */
-    header {
-      background: rgba(10, 5, 8, 0.4);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--glass-border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 16px 0;
-      transition: var(--transition);
-      margin-top: 3px; 
-    }
-
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .brand {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-
-    .brand span {
-      color: var(--gold-accent);
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--primary-wine);
-      color: #FFF;
-      padding: 12px 28px;
-      border-radius: 50px;
+      font-family: 'Lora', serif;
       font-weight: 500;
-      font-size: 0.95rem;
+      letter-spacing: -0.02em;
+    }
+    h1, h2, .section-subtitle { text-wrap: balance; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+    
+    .container { width: 100%; max-width: 1050px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    .text-center { text-align: center; }
+
+    /* COMPONENTES COMPARTIDOS */
+    .section-title { font-size: 2.4rem; margin-bottom: 16px; color: var(--text-main); }
+    .section-subtitle { font-size: 1.15rem; color: var(--text-muted); max-width: 650px; margin: 0 auto 56px; }
+    
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 32px; border-radius: 50px;
+      font-weight: 500; font-size: 1rem; border: none;
+      background: var(--primary); color: var(--white);
       transition: var(--transition);
-      border: 1px solid var(--primary-wine);
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
+    }
+    .btn-primary:hover {
+      background: var(--primary-light); transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(178, 58, 72, 0.25);
     }
 
-    .btn:hover {
-      background-color: var(--wine-light);
-      border-color: var(--wine-light);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(156, 39, 68, 0.4);
+    /* HEADER */
+    header { position: absolute; top: 0; left: 0; right: 0; padding: 32px 0; z-index: 100; }
+    .header-content { display: flex; justify-content: space-between; align-items: center; }
+    .brand { font-size: 1.8rem; color: var(--text-main); font-weight: 600; }
+    .brand span { color: #D4AF37; } 
+    
+    .btn-nav {
+      display: inline-block; padding: 10px 28px; border-radius: 50px; border: none;
+      background: var(--primary); color: var(--white);
+      font-weight: 600; font-size: 0.95rem;
+      box-shadow: 0 4px 15px rgba(178, 58, 72, 0.4); transition: var(--transition);
+    }
+    .btn-nav:hover {
+      background: var(--primary-light); transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(178, 58, 72, 0.6);
     }
 
-    .btn-outline {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: var(--text-main);
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(10px);
+    /* HERO */
+    .hero { position: relative; height: 100vh; min-height: 750px; display: flex; align-items: center; }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=2000&auto=format&fit=crop') center center/cover no-repeat fixed;
+    }
+    .hero-gradient {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to bottom, rgba(15, 15, 15, 0.4) 0%, rgba(28, 22, 23, 0.7) 65%, var(--bg-stone) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 750px; transform: translateY(-5vh); }
+    .hero h1 { font-size: clamp(3rem, 6vw, 4.8rem); line-height: 1.05; margin-bottom: 24px; }
+    .hero p { font-size: 1.2rem; color: #D1D5DB; font-weight: 400; max-width: 600px; }
+
+    /* METODOLOGÍA (TIMELINE) */
+    .workflow-section { padding-top: 0; }
+    .timeline-container { max-width: 700px; margin: 0 auto; position: relative; }
+    .timeline-track {
+      position: absolute; left: 24px; transform: translateX(-50%); width: 2px;
+      background: var(--border); z-index: 0; overflow: hidden; 
+    }
+    .timeline-pulse {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100px;
+      background: linear-gradient(to bottom, transparent, var(--primary), transparent);
+      animation: progress-flow 3.5s infinite;
     }
 
-    .btn-outline:hover {
-      background-color: var(--text-main);
-      color: #111;
-      border-color: var(--text-main);
-      transform: translateY(-2px);
-    }
-
-    /* HERO SECTION */
-    .hero {
-      padding: 140px 0 100px; 
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
-      line-height: 1.15;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-      text-shadow: 0 6px 18px rgba(0,0,0,0.4); 
-    }
-
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--text-main);
-      max-width: 680px;
-      margin: 0 auto 40px;
-      font-weight: 400;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
-
-    /* FEATURES & STEPS */
-    .features, .steps {
-      padding: 80px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .section-title h2 {
-      font-size: 2.6rem;
-      margin-bottom: 16px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-
-    .section-title p {
-      color: var(--text-main);
-      font-size: 1.1rem;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 32px;
+    @keyframes progress-flow {
+      0% { top: -100px; opacity: 0; }
+      15%, 85% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
     }
     
-    .step-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
+    .timeline-item {
+      position: relative; padding-left: 64px; margin-bottom: 48px; z-index: 2;
+      opacity: 0; transform: translateY(15px); transition: all 0.6s ease;
     }
-
-    /* TARJETAS CON EFECTO LINTERNA */
-    .glow-effect {
-      background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: var(--radius);
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-shadow);
-      transition: transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
-      position: relative;
-      overflow: hidden; 
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-item.visible { opacity: 1; transform: translateY(0); }
+    
+    .timeline-item::before {
+      content: ''; position: absolute; top: 6px; left: 24px; width: 16px; height: 16px;
+      transform: translateX(-50%); border-radius: 50%;
+      background: var(--bg-stone); border: 2px solid var(--primary);
+      z-index: 3; transition: all 0.25s ease-out;
     }
-
-    .glow-effect::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(400px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(212, 175, 55, 0.15), transparent 40%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .glow-effect:hover::before {
-      opacity: 1;
-    }
-
-    .glow-effect:hover {
-      transform: translateY(-8px);
-      background: rgba(30, 10, 15, 0.75);
-      border-color: rgba(212, 175, 55, 0.25);
-    }
-
-    .glow-content {
-      position: relative;
-      z-index: 1;
-      padding: 40px 32px;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    /* MEJORAS VISUALES EN LAS TARJETAS (BADGES E ICONOS) */
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
-    }
-
-    .card-icon {
-      width: 52px;
-      height: 52px;
-      color: var(--gold-accent);
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15); /* Sombra añadida para dar volumen */
-      transition: var(--transition);
-    }
-
-    .glow-effect:hover .card-icon {
-      transform: scale(1.05);
-      background: rgba(212, 175, 55, 0.15);
-    }
-
-    .badge {
-      display: inline-block;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--gold-accent);
-      background: rgba(212, 175, 55, 0.08);
-      padding: 6px 12px;
-      border-radius: 50px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      transition: var(--transition);
-    }
-
-    .glow-effect:hover .badge {
-      background: rgba(212, 175, 55, 0.18);
-    }
-
-    .glow-effect h3 {
-      font-size: 1.4rem;
-      margin-bottom: 12px;
-    }
-
-    .glow-effect p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    /* ESTILOS DE LA TARJETA "DESARROLLO A MEDIDA" */
-    .custom-solution-wrapper {
-      display: flex;
-      justify-content: center;
-      margin-top: 40px;
-    }
-
-    .custom-card {
-      width: 100%;
-      max-width: 900px;
-    }
-
-    .custom-card .glow-content {
-      flex-direction: row;
-      align-items: center;
-      text-align: left;
-      gap: 32px;
-      padding: 32px 48px;
-    }
-
-    .custom-card .card-icon {
-      flex-shrink: 0;
-      width: 64px;
-      height: 64px;
-    }
-
-    .custom-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-    }
-
-    /* Textos justificados para la tarjeta de otros */
-    .custom-card p {
-      text-align: justify;
-      hyphens: auto;
-    }
-
-    .step-number {
-      color: var(--gold-accent);
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      font-style: italic;
-      line-height: 1;
-      margin-bottom: 16px;
-      opacity: 0.6;
-      transition: var(--transition);
+    .timeline-item.glow::before {
+      background: var(--primary); border-color: var(--primary-light);
+      box-shadow: 0 0 12px var(--primary), 0 0 20px rgba(201, 70, 86, 0.4);
+      transform: translateX(-50%) scale(1.1);
     }
     
-    .glow-effect:hover .step-number {
-      opacity: 1;
-      transform: translateX(5px);
-    }
+    .timeline-step { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary); margin-bottom: 6px; display: block; font-weight: 600; }
+    .timeline-item h3 { font-size: 1.5rem; margin-bottom: 10px; }
+    .timeline-item p { color: var(--text-muted); font-size: 1rem; }
 
-    /* CONTACT CTA */
-    .contact {
-      padding: 80px 0 120px;
-      text-align: center;
-    }
-
-    .contact-box {
-      background: rgba(156, 39, 68, 0.25);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      padding: 70px 40px;
-      border-radius: 24px;
-      max-width: 800px;
-      margin: 0 auto;
-      box-shadow: var(--glass-shadow);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .contact-box h2 {
-      margin-bottom: 16px;
-      font-size: 2.2rem;
-    }
-
-    .contact-box p {
-      margin-bottom: 40px;
-      color: var(--text-main);
-      font-size: 1.1rem;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .link-light {
-      color: var(--gold-accent);
-      text-decoration: underline;
-      text-underline-offset: 4px;
+    /* SOLUCIONES */
+    #soluciones { padding-bottom: 40px; }
+    .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
+    .solution-card {
+      padding: 40px 32px; border-radius: 16px; background: var(--bg-surface);
+      border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
       transition: var(--transition);
     }
-    
-    .link-light:hover {
-      color: #FFF;
+    .solution-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: rgba(178, 58, 72, 0.4); }
+    .solution-icon { width: 44px; height: 44px; margin-bottom: 24px; color: var(--primary); transition: transform 0.4s ease; }
+    .solution-card:hover .solution-icon { transform: scale(1.05); }
+    .solution-card h3 { font-size: 1.3rem; margin-bottom: 12px; }
+    .solution-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* CONTACTO */
+    .contact-section { padding: 40px 0 60px; }
+    .contact-cta {
+      background: var(--bg-surface); border-radius: 20px; padding: 64px 40px;
+      text-align: center; box-shadow: var(--shadow-md); border: 1px solid var(--border);
+      max-width: 750px; margin: 0 auto;
     }
+    .contact-cta h2 { font-size: 2.1rem; margin-bottom: 16px; }
+    .contact-cta p { color: var(--text-muted); font-size: 1.05rem; margin: 0 auto 32px; max-width: 550px; }
+    .email-link { display: block; margin-top: 24px; color: var(--text-muted); font-size: 0.95rem; transition: color 0.3s; }
+    .email-link:hover { color: var(--primary-light); }
+
+    /* MODAL FORMULARIO */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px);
+      z-index: 2000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .modal-container {
+      background: var(--bg-stone); width: 100%; max-width: 750px; height: 85vh; max-height: 850px;
+      border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
+      transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    .modal-overlay.active .modal-container { transform: translateY(0); }
+    .modal-header { padding: 16px 24px; background: var(--bg-surface); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+    .modal-header h3 { font-size: 1.1rem; margin: 0; }
+    .btn-close { background: none; border: none; font-size: 1.8rem; line-height: 1; color: var(--text-muted); transition: color 0.2s; }
+    .btn-close:hover { color: var(--primary); }
+    .modal-body { flex: 1; width: 100%; background: var(--white); }
+    .modal-body iframe { width: 100%; height: 100%; border: none; }
 
     /* FOOTER */
-    footer {
-      background: rgba(5, 5, 10, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 40px 0 30px;
-      text-align: center;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 0.9rem;
-    }
+    footer { background: #110D0E; color: #9CA3AF; padding: 40px 0 30px; text-align: center; }
+    footer .brand { color: var(--text-main); margin-bottom: 12px; display: block; font-size: 1.6rem; }
+    .footer-links { display: flex; justify-content: center; gap: 32px; margin: 24px 0; }
+    .footer-links a { font-size: 0.9rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-main); }
+    .copyright { font-size: 0.85rem; margin-top: 16px; }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin-top: 16px;
-      font-size: 0.85rem;
-      opacity: 0.8;
-    }
-
-    .footer-links button {
-      background: none;
-      border: none;
-      color: inherit;
-      font: inherit;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .footer-links button:hover {
-      color: var(--text-main);
-      text-decoration: underline;
-    }
-
-    /* ESTILOS DEL MODAL (Pop-up Legal) */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      z-index: 99999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-      padding: 20px;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-content {
-      background: #1A1A24;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 700px;
-      max-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      transform: translateY(20px);
-      transition: transform 0.3s ease;
-    }
-
-    .modal-overlay.active .modal-content {
-      transform: translateY(0);
-    }
-
-    .modal-header {
-      padding: 24px 32px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: var(--gold-accent);
-    }
-
-    .close-modal {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-
-    .close-modal:hover {
-      color: var(--text-main);
-    }
-
-    .modal-body {
-      padding: 32px;
-      overflow-y: auto;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-    
-    .modal-body h3 {
-      color: var(--text-main);
-      margin: 24px 0 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1.1rem;
-    }
-
-    .modal-body h3:first-child {
-      margin-top: 0;
-    }
-
-    .modal-body p {
-      margin-bottom: 16px;
-    }
-
-    /* Ocultar secciones del modal por defecto */
-    .legal-section { display: none; }
-    .legal-section.active { display: block; }
-
-    /* MICRO-ANIMACIONES DE ENTRADA */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      .hero { padding: 100px 0 80px; }
-      .contact-box { padding: 40px 24px; }
-      .section-title h2 { font-size: 2.2rem; }
-      .grid { grid-template-columns: 1fr; }
-      
-      .custom-card .glow-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 16px;
-        padding: 32px;
-      }
-      .custom-card p {
-        text-align: left; /* En móvil suele leerse mejor alineado a la izquierda */
-      }
+      .hero h1 { font-size: 2.8rem; }
+      .hero-content { transform: none; padding-top: 40px; }
+      .timeline-track { left: 16px; }
+      .timeline-item { padding-left: 50px; margin-bottom: 40px; }
+      .timeline-item::before { left: 16px; top: 6px; } 
+      .contact-cta { padding: 48px 24px; }
+      .modal-container { height: 90vh; }
+      section { padding: 60px 0; }
     }
   </style>
 </head>
 <body>
 
-  <!-- BARRA DE PROGRESO DE LECTURA -->
-  <div class="progress-container">
-    <div class="progress-bar" id="progressBar"></div>
-  </div>
-
-  <!-- FONDO LUMINOSO ESTÁTICO -->
-  <div class="bg-fixed"></div>
-  <div class="bg-overlay"></div>
-
+  <!-- HEADER -->
   <header>
     <div class="container header-content">
-      <div class="brand">
-        Sentia<span>.</span>
-      </div>
-      <div class="header-actions">
-        <a href="#contacto" class="btn">Solicitar información</a>
-      </div>
+      <div class="brand">Sentia<span>.</span></div>
+      <a href="#contacto" class="btn-nav">Hablemos</a>
     </div>
   </header>
 
-  <main>
-    <section class="hero reveal active">
-      <div class="container">
-        <h1>Control total de tu bodega.<br>Sin complicaciones.</h1>
-        <p>Impulsamos la eficiencia de tu bodega integrando <strong>monitorización IoT, digitalización e Inteligencia Artificial</strong>. Anticipa problemas, automatiza tareas y toma decisiones estratégicas basadas en datos, <strong>sin alterar vuestra forma de trabajar</strong>.</p>
-        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 32px;">
-          <a href="#contacto" class="btn">Solicitar información</a>
-          <a href="#soluciones" class="btn btn-outline">Descubrir soluciones</a>
-        </div>
-      </div>
-    </section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-gradient"></div>
+    <div class="container hero-content fade-up">
+      <h1>Entendemos el vino.<br>Optimizamos tu bodega.</h1>
+      <p>Diagnosticamos tus procesos productivos y construimos la solución tecnológica exacta que necesitas para ganar eficiencia. Sin software genérico. Sin fricciones.</p>
+    </div>
+  </section>
 
-    <!-- SECCIÓN DE SOLUCIONES (4 PRODUCTOS + 1 A MEDIDA) -->
-    <section id="soluciones" class="features container">
-      <div class="section-title reveal">
-        <h2>Nuestras Soluciones</h2>
-        <p>La tecnología se adapta a tus necesidades. Estas son <strong>las cuatro soluciones tecnológicas principales</strong> que diseñamos para facilitar el día a día en producción y logística:</p>
+  <!-- METODOLOGÍA -->
+  <section class="workflow-section" id="metodo">
+    <div class="container">
+      <div class="text-center fade-up">
+        <h2 class="section-title">Tecnología con sentido</h2>
+        <p class="section-subtitle">Fusionamos la cercanía de una consultora tradicional con la innovación del desarrollo a medida. Así es como trabajamos contigo.</p>
       </div>
-      
-      <!-- CUADRÍCULA 2x2 DE PRODUCTOS CON MEJORAS VISUALES -->
-      <div class="grid">
+
+      <div class="timeline-container">
+        <div class="timeline-track" id="timelineTrack"><div class="timeline-pulse"></div></div>
         
-        <!-- Solución 1: Fermentwatch -->
-        <div class="glow-effect reveal">
-          <div class="glow-content">
-            <div class="card-header">
-              <div class="card-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
-              </div>
-              <span class="badge">IoT & Control</span>
-            </div>
-            <h3>FermentWatch</h3>
-            <p><strong>Que no se te escape la fermentación:</strong> detecta, decide y deja todo registrado. Control continuo de la fermentación para detectar problemas antes y reaccionar a tiempo.</p>
-          </div>
+        <div class="timeline-item">
+          <span class="timeline-step">Fase 01 · Cercanía real</span>
+          <h3>Auditoría en planta, pisando la bodega</h3>
+          <p>Antes de proponer nada, visitamos tus instalaciones. Nos sentamos con tu equipo para entender qué procesos y cuellos de botella reales les están frenando en su día a día. No hacemos suposiciones.</p>
         </div>
-
-        <!-- Solución 2: SkyVine -->
-        <div class="glow-effect reveal" style="transition-delay: 0.1s;">
-          <div class="glow-content">
-            <div class="card-header">
-              <div class="card-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><circle cx="12" cy="12" r="4"></circle><path d="M6.34 6.34l1.42 1.42"></path><path d="M16.24 16.24l1.42 1.42"></path><path d="M6.34 17.66l1.42-1.42"></path><path d="M16.24 7.76l1.42-1.42"></path></svg>
-              </div>
-              <span class="badge">IA & Drones</span>
-            </div>
-            <h3>SkyVine</h3>
-            <p><strong>La inteligencia aérea del viñedo.</strong> Detección y captura automática de datos con drones sobre campo y bodega: enfermedades, maduración, situación de plantas y estado de barriles.</p>
-          </div>
-        </div>
-
-        <!-- Solución 3: BarrelIq -->
-        <div class="glow-effect reveal" style="transition-delay: 0.2s;">
-          <div class="glow-content">
-            <div class="card-header">
-              <div class="card-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5V19A9 3 0 0 0 21 19V5"></path><path d="M3 12A9 3 0 0 0 21 12"></path></svg>
-              </div>
-              <span class="badge">Trazabilidad</span>
-            </div>
-            <h3>BarrelIq</h3>
-            <p><strong>Convierte cada barrica en un dato</strong> que trabaja para ti. Control y trazabilidad de barricas para saber dónde están y evitar errores operativos.</p>
-          </div>
-        </div>
-
-        <!-- Solución 4: LabelTrace -->
-        <div class="glow-effect reveal" style="transition-delay: 0.3s;">
-          <div class="glow-content">
-            <div class="card-header">
-              <div class="card-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-              </div>
-              <span class="badge">Logística</span>
-            </div>
-            <h3>LabelTrace</h3>
-            <p><strong>Que cada caja llegue donde toca…</strong> y no donde se cree. Trazabilidad de lote y expedición con validación de pedidos y registro de salida por unidad logística.</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- TARJETA 5: DESARROLLO A MEDIDA (Centrada, ancha y justificada) -->
-      <div class="custom-solution-wrapper reveal" style="transition-delay: 0.4s;">
-        <div class="glow-effect custom-card">
-          <div class="glow-content">
-            <div class="card-icon">
-              <!-- Icono Capas / Ingeniería transversal -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-            </div>
-            <div>
-              <h3>¿Tienes otro reto? Desarrollo a medida</h3>
-              <p><strong>Nos adaptamos a vuestra realidad operativa.</strong> Si tenéis un cuello de botella en el viñedo, la bodega o la distribución, diseñamos la herramienta tecnológica exacta para resolverlo.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- SECCIÓN DE METODOLOGÍA -->
-    <section id="metodologia" class="steps container">
-      <div class="section-title reveal">
-        <h2>Nuestro enfoque: la prueba piloto</h2>
-        <p>No necesitas cambiar todo tu sistema de golpe. Validamos el valor de la tecnología paso a paso.</p>
-      </div>
-      <div class="step-list">
         
-        <div class="glow-effect reveal">
-          <div class="glow-content" style="padding: 30px;">
-            <div class="step-number">01</div>
-            <h3>Nos tomamos un vino</h3>
-            <p>Visitamos la bodega para conocer de primera mano dónde perdéis más tiempo o <strong>qué tareas generan mayor fricción</strong> en el día a día.</p>
-          </div>
+        <div class="timeline-item">
+          <span class="timeline-step">Fase 02 · Cero imposiciones</span>
+          <h3>Diseño de la solución exacta</h3>
+          <p>No somos comerciales de un software externo. Elaboramos una arquitectura tecnológica (IoT, automatización o IA) a la medida de los problemas encontrados, con presupuestos cerrados y garantizando un retorno real.</p>
         </div>
-
-        <div class="glow-effect reveal" style="transition-delay: 0.1s;">
-          <div class="glow-content" style="padding: 30px;">
-            <div class="step-number">02</div>
-            <h3>Despliegue ágil y acotado</h3>
-            <p>Implementamos las <strong>herramientas estrictamente necesarias</strong> —ya sea sensórica física, software de digitalización o modelos predictivos— en un área concreta, sin frenar vuestra producción.</p>
-          </div>
+        
+        <div class="timeline-item">
+          <span class="timeline-step">Fase 03 · Sencillez y agilidad</span>
+          <h3>Despliegue sin detener tu producción</h3>
+          <p>Sabemos que el tiempo es crítico. Instalamos el hardware y el software de forma escalonada, integrándonos de manera fluida con las herramientas de gestión que ya utilices para no generar interrupciones.</p>
         </div>
-
-        <div class="glow-effect reveal" style="transition-delay: 0.2s;">
-          <div class="glow-content" style="padding: 30px;">
-            <div class="step-number">03</div>
-            <h3>Valoras los resultados</h3>
-            <p>Tras el periodo de prueba, analizamos con datos reales si el sistema ha aportado valor. Tú decides si continuamos, <strong>sin compromisos a ciegas</strong>.</p>
-          </div>
+        
+        <div class="timeline-item">
+          <span class="timeline-step">Fase 04 · Acompañamiento</span>
+          <h3>Formación y llave en mano</h3>
+          <p>La mejor tecnología no sirve de nada si el equipo no la utiliza. Formamos a todo el personal, dejamos el sistema 100% funcionando y ofrecemos soporte continuo. No te dejamos solo tras la instalación.</p>
         </div>
-
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECCIÓN DE CONTACTO -->
-    <section id="contacto" class="contact container">
-      <div class="contact-box reveal">
-        <h2>¿Hablamos?</h2>
-        <p>Déjanos un medio de contacto y cuéntanos brevemente qué área te gustaría optimizar. Nos pondremos en contacto contigo rápidamente.</p>
-        <a href="mailto:sentia.enterprise@gmail.com?subject=Información%20sobre%20Sentia%20Bodegas" class="btn">
-          Contactar por correo
-        </a>
-        <p style="margin-top: 24px; font-size: 0.95rem; margin-bottom: 0;">
-          O si prefieres ir directo al grano, completa nuestro breve cuestionario&nbsp;<a href="https://docs.google.com/forms/d/e/1FAIpQLSdK1gu6mxhrFJQZ6fwxt0YHHtOBNgNvJXzaz4iPE-9sPNp0Gg/viewform" target="_blank" class="link-light">aquí</a>.
-        </p>
+  <!-- SOLUCIONES -->
+  <section id="soluciones">
+    <div class="container">
+      <div class="text-center fade-up">
+        <h2 class="section-title">Qué implementamos</h2>
+        <p class="section-subtitle">Cubrimos el ciclo completo: desde el control del viñedo hasta la comercialización.</p>
       </div>
-    </section>
-  </main>
 
+      <div class="solutions-grid">
+        <div class="solution-card fade-up">
+          <svg class="solution-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9M3 12h18"></path></svg>
+          <h3>IoT y Drones</h3>
+          <p>Sensores en depósitos y vuelos multiespectrales en viñedo. Controla variables en tiempo real para detectar plagas tempranamente, evitar desvíos de calidad y ahorrar miles de euros por mermas.</p>
+        </div>
+        
+        <div class="solution-card fade-up" style="transition-delay: 100ms;">
+          <svg class="solution-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"></path></svg>
+          <h3>Automatización Integral</h3>
+          <p>Conectamos tu maquinaria y sistemas para eliminar el trabajo manual. Reduce cientos de horas al año y maximiza la rentabilidad operativa de tu bodega sin fricciones.</p>
+        </div>
+        
+        <div class="solution-card fade-up" style="transition-delay: 200ms;">
+          <svg class="solution-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.2"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path></svg>
+          <h3>Inteligencia Artificial</h3>
+          <p>Modelos predictivos que anticipan la demanda comercial y optimizan los procesos enológicos, garantizando el mayor margen de beneficio por cada botella producida.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="contact-section">
+    <div class="container fade-up">
+      <div class="contact-cta">
+        <h2>Da el primer paso. Sin compromiso.</h2>
+        <p>Rellena un breve cuestionario sobre el estado actual de tu bodega o escríbenos directamente. Analizaremos tu caso sin coste para ver cómo podemos ayudarte.</p>
+        <button class="btn-primary" onclick="toggleModal(true)">Rellenar diagnóstico inicial</button>
+        <a href="mailto:sentia.enterprise@gmail.com" class="email-link">O escríbenos a: sentia.enterprise@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="container reveal">
-      <p style="margin-bottom: 8px;"><strong>Sentia</strong> &middot; Tecnología Inteligente para Bodegas</p>
-      <p>sentia.enterprise@gmail.com</p>
-      
-      <!-- ENLACES QUE ABREN EL MODAL -->
+    <div class="container">
+      <div class="brand">Sentia<span>.</span></div>
+      <p>Consultoría y Tecnología Estratégica para Bodegas.</p>
       <div class="footer-links">
-        <button onclick="openModal('aviso')">Aviso Legal</button>
-        <button onclick="openModal('privacidad')">Política de Privacidad</button>
-        <button onclick="openModal('cookies')">Política de Cookies</button>
+        <a href="#metodo">Metodología</a>
+        <a href="#soluciones">Soluciones</a>
+        <a href="#contacto">Contacto</a>
       </div>
+      <p class="copyright">&copy; 2026 Sentia Enterprise. Todos los derechos reservados.</p>
     </div>
   </footer>
 
-  <!-- MODAL LEGAL -->
-  <div class="modal-overlay" id="legalModal" onclick="closeModal(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
+  <!-- MODAL FORMULARIO -->
+  <div class="modal-overlay" id="formModal" onclick="toggleModal(false)">
+    <div class="modal-container" onclick="event.stopPropagation()">
       <div class="modal-header">
-        <h2 id="modalTitle">Información Legal</h2>
-        <button class="close-modal" onclick="closeModal(event)">×</button>
+        <h3>Diagnóstico Inicial</h3>
+        <button class="btn-close" onclick="toggleModal(false)">&times;</button>
       </div>
       <div class="modal-body">
-        
-        <div id="content-aviso" class="legal-section">
-          <h3>1. Propósito del sitio web</h3>
-          <p>Este sitio web pertenece al equipo detrás del proyecto <strong>Sentia</strong>. Actualmente somos una iniciativa tecnológica en fase de desarrollo validando nuestra propuesta de valor en el sector vitivinícola.</p>
-          <p>El propósito de esta página es puramente informativo y de contacto profesional. A través de ella no se realizan transacciones comerciales ni cobros.</p>
-          <h3>2. Contacto directo</h3>
-          <p>Para cualquier duda, sugerencia o comunicación con nuestro equipo, puedes escribirnos directamente a nuestro correo: <strong>sentia.enterprise@gmail.com</strong>.</p>
-        </div>
-
-        <div id="content-privacidad" class="legal-section">
-          <h3>1. Qué hacemos con tu información</h3>
-          <p>Nuestra política es simple y transparente. Si decides escribirnos un correo electrónico o rellenar nuestro formulario de contacto, utilizaremos tu dirección y los datos que nos facilites <strong>única y exclusivamente para responder a tu consulta</strong> y mantener una conversación profesional.</p>
-          <p><strong>No vendemos, no alquilamos y no cedemos tus datos a nadie.</strong></p>
-          <h3>2. Tus derechos</h3>
-          <p>Si en algún momento deseas que dejemos de escribirte o quieres que eliminemos tu correo electrónico de nuestros registros de contacto, solo tienes que pedírnoslo escribiendo a: <strong>sentia.enterprise@gmail.com</strong>.</p>
-        </div>
-
-        <div id="content-cookies" class="legal-section">
-          <h3>Cero rastreo publicitario</h3>
-          <p>Nos importa tu privacidad. <strong>Esta página web NO utiliza cookies analíticas, de rastreo, ni publicitarias.</strong> No recopilamos información sobre cómo navegas ni se la enviamos a terceros.</p>
-          <p>Únicamente empleamos los recursos técnicos y estrictamente indispensables proporcionados por la plataforma de alojamiento (GitHub Pages) para que el sitio web sea seguro y se visualice correctamente en tu dispositivo.</p>
-        </div>
-
+        <iframe src="https://forms.gle/hQhReZjv4FFHSvmg9" title="Formulario de diagnóstico Sentia"></iframe>
       </div>
     </div>
   </div>
 
+  <!-- SCRIPTS -->
   <script>
-    // 1. BARRA DE PROGRESO DE LECTURA
-    window.addEventListener('scroll', () => {
-      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
-      document.getElementById("progressBar").style.width = scrolled + "%";
-    });
+    // Gestión del Modal
+    const modal = document.getElementById('formModal');
+    function toggleModal(show) {
+      modal.classList.toggle('active', show);
+      document.body.style.overflow = show ? 'hidden' : 'auto';
+    }
 
-    // 2. EFECTO LINTERNA EN TARJETAS (Glow Hover)
-    document.querySelectorAll('.glow-effect').forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-      });
-    });
-
-    // 3. MICRO-ANIMACIONES DE ENTRADA (Scroll Reveal)
     document.addEventListener('DOMContentLoaded', () => {
-      const reveals = document.querySelectorAll('.reveal');
-      
-      const revealOnScroll = new IntersectionObserver((entries, observer) => {
+      // Intersection Observer unificado
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('active');
+            // Retraso dinámico si existe la propiedad transition-delay en el HTML
+            const delay = entry.target.style.transitionDelay ? parseInt(entry.target.style.transitionDelay) : 0;
+            setTimeout(() => entry.target.classList.add('visible'), delay || 0);
             observer.unobserve(entry.target);
           }
         });
-      }, {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-      });
+      }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
 
-      reveals.forEach(reveal => {
-        revealOnScroll.observe(reveal);
-      });
+      document.querySelectorAll('.fade-up, .timeline-item').forEach(el => observer.observe(el));
+
+      // Lógica de la línea temporal (Timeline)
+      const track = document.getElementById('timelineTrack');
+      const pulse = document.querySelector('.timeline-pulse');
+      const timelineItems = document.querySelectorAll('.timeline-item');
+
+      function updateTimeline() {
+        if (!track || timelineItems.length < 2) return;
+        
+        // Ajustar altura de la línea (centrado en los círculos de la fase inicial y final)
+        const topOffset = timelineItems[0].offsetTop + 14; 
+        const bottomOffset = timelineItems[timelineItems.length - 1].offsetTop + 14;
+        
+        track.style.top = `${topOffset}px`;
+        track.style.height = `${bottomOffset - topOffset}px`;
+      }
+
+      function checkPulseCollision() {
+        if (!pulse) return;
+        const pulseRect = pulse.getBoundingClientRect();
+        
+        timelineItems.forEach((item, index) => {
+          const circleY = item.getBoundingClientRect().top + 14; 
+          const tailThreshold = (index === timelineItems.length - 1) ? 60 : 0;
+          
+          item.classList.toggle('glow', pulseRect.bottom >= circleY && pulseRect.top <= circleY - tailThreshold);
+        });
+        requestAnimationFrame(checkPulseCollision);
+      }
+
+      // Iniciar funciones visuales
+      window.addEventListener('resize', updateTimeline);
+      window.addEventListener('load', updateTimeline);
+      updateTimeline();
+      
+      if (timelineItems.length > 0) requestAnimationFrame(checkPulseCollision);
     });
-
-    // 4. CONTROL DEL MODAL LEGAL
-    const modalOverlay = document.getElementById('legalModal');
-    const sections = document.querySelectorAll('.legal-section');
-    const modalTitle = document.getElementById('modalTitle');
-
-    const titles = {
-      'aviso': 'Aviso Legal',
-      'privacidad': 'Política de Privacidad',
-      'cookies': 'Política de Cookies'
-    };
-
-    function openModal(type) {
-      sections.forEach(sec => sec.classList.remove('active'));
-      document.getElementById('content-' + type).classList.add('active');
-      modalTitle.textContent = titles[type];
-      modalOverlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(e) {
-      if (e) e.preventDefault();
-      modalOverlay.classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
   </script>
 
 </body>
